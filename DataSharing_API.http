@@ -1,0 +1,6 @@
+@DataSharing_API_HostAddress = http://localhost:5222
+
+GET {{DataSharing_API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

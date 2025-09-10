@@ -1,0 +1,115 @@
+﻿namespace DataSharing_API.Model
+{
+    public class TransactionDataResponseModel
+    {
+        public List<TransactionDataResponse>? transactionDataResponseList { get; set; }
+
+        public TransactionDataResponse? transactionDataResponses { get; set; }
+    }
+    public class TransactionDataResponse
+    {
+        public long Id { get; set; }
+        public Guid CorrelationId { get; set; }
+        public string? AccountId { get; set; }
+        public string? TransactionId { get; set; }
+        public DateTime TransactionDateTime { get; set; }
+        public DateTime LocalTimeZone { get; set; }
+        public string? StatementReference { get; set; }
+        public string? TransactionReference { get; set; }
+        public string? TransactionType { get; set; }
+        public string? SubTransactionType { get; set; }
+        public string? TerminalId { get; set; }
+        public string? Flags { get; set; }
+        public string? PaymentModes { get; set; }
+        public string? CreditDebitIndicator { get; set; }
+        public string? TransactionStatus { get; set; }
+        public string? TransactionMutability { get; set; }
+        public DateTime BookingDateTime { get; set; }
+        public DateTime ValueDateTime { get; set; }
+        public string? TransactionInformation { get; set; }
+        public string? Amount { get; set; }
+        public string? AmountCurrency { get; set; }
+        public string? ChargeAmount { get; set; }
+        public string? ChargeAmountCurrency { get; set; }
+        public string? ChargeIncluded { get; set; }
+        public string? ChargeAmountVat { get; set; }
+        public string? ChargeAmountVatCurrency { get; set; }
+        public string? SourceCurrency { get; set; }
+        public string? TargetCurrency { get; set; }
+        public string? UnitCurrency { get; set; }
+        public string? ExchangeRate { get; set; }
+        public string? ContractIdentification { get; set; }
+        public DateTime QuotationDate { get; set; }
+        public string? InstructedAmount { get; set; }
+        public string? InstructedCurrency { get; set; }
+        public string? BankTxCodeDomain { get; set; }
+        public string? BankTxCodeDomainCode { get; set; }
+        public string? BankTxCodeFamily { get; set; }
+        public string? BankTxCodeFamilyCode { get; set; }
+        public string? BankTxCodeSubFamily { get; set; }
+        public string? BankTxCodeSubFamilyCode { get; set; }
+        public string? ProprietaryCode { get; set; }
+        public string? ProprietaryIssuer { get; set; }
+        public string? BalanceIndicator { get; set; }
+        public string? BalanceType { get; set; }
+        public string? BalanceAmount { get; set; }
+        public string? BalanceCurrency { get; set; }
+        public string? MerchantId { get; set; }
+        public string? MerchantName { get; set; }
+        public string? MerchantCategoryCode { get; set; }
+        public string? CreditorAgentScheme { get; set; }
+        public string? CreditorAgentId { get; set; }
+        public string? CreditorAgentName { get; set; }
+        public string? CreditorAgentAddrType { get; set; }
+        public string? CreditorAgentAddrLine { get; set; }
+        public string? CreditorAgentBuildingNumber { get; set; }
+        public string? CreditorAgentBuildingName { get; set; }
+        public string? CreditorAgentFloor { get; set; }
+        public string? CreditorAgentStreetName { get; set; }
+        public string? CreditorAgentDistrictName { get; set; }
+        public string? CreditorAgentPostBox { get; set; }
+        public string? CreditorAgentTownName { get; set; }
+        public string? CreditorAgentCountrySubDivision { get; set; }
+        public string? CreditorAgentCountry { get; set; }
+        public string? CreditorAccount { get; set; }
+        public string? DebtorAgentScheme { get; set; }
+        public string? DebtorAgentId { get; set; }
+        public string? DebtorAgentName { get; set; }
+        public string? DebtorAgentAddrType { get; set; }
+        public string? DebtorAgentAddrLine { get; set; }
+        public string? DebtorAgentBuildingNumber { get; set; }
+        public string? DebtorAgentBuildingName { get; set; }
+        public string? DebtorAgentFloor { get; set; }
+        public string? DebtorAgentStreetName { get; set; }
+        public string? DebtorAgentDistrictName { get; set; }
+        public string? DebtorAgentPostBox { get; set; }
+        public string? DebtorAgentTownName { get; set; }
+        public string? DebtorAgentCountrySubDivision { get; set; }
+        public string? DebtorAgentCountry { get; set; }
+        public string? DebtorAccountScheme { get; set; }
+        public string? DebtorAccountId { get; set; }
+        public string? DebtorAccountName { get; set; }
+        public string? CardSchemeName { get; set; }
+        public string? CardInstrumentType { get; set; }
+        public string? CardHolderName { get; set; }
+        public string? CardIdentification { get; set; }
+        public string? GeoLatitude { get; set; }
+        public string? GeoLongitude { get; set; }
+        public string? BillerID { get; set; }
+        public string? BillNumber { get; set; }
+        public string? BillPaymentType { get; set; }
+        public string? PaymentPurposeCode { get; set; }
+        public string? IsPrimaryInstrument { get; set; }
+        public string? AllocationCategory { get; set; }
+        public string? Paginated { get; set; }
+        public string? TotalPages { get; set; }
+        public string? TotalRecords { get; set; }
+        public string? Status { get; set; }
+        public string? CreatedBy { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public string? ModifiedBy { get; set; }
+        public DateTime ModifiedOn { get; set; }
+        public DateTime FromDate { get; set; }
+        public DateTime ToDate { get; set; }
+    }
+}
