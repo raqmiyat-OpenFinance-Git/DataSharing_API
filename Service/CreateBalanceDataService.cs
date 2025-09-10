@@ -121,7 +121,7 @@ namespace DataSharing_API.Service
             return balanceRequestId;
         }
 
-        public async Task<string> SaveConsentResponseAsync(long id, TppBalancesResponse tppBalancesResponse)
+        public async Task<string> SaveBalanceResponseAsync(long id, TppBalancesResponse tppBalancesResponse)
         {
             string result = string.Empty;
             try

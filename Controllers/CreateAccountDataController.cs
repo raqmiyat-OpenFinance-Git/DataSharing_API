@@ -8,60 +8,51 @@ namespace DataSharing_API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CreateBalanceDataController : Controller
+    public class CreateAccountDataController : Controller
     {
 
-        private readonly ICreateBalanceDataService _service;
+        private readonly ICreateAccountDataService _service;
         private readonly NLogDataSharingService _logger;
-        public CreateBalanceDataController(ICreateBalanceDataService service, NLogDataSharingService logger)
+        public CreateAccountDataController(ICreateAccountDataService service, NLogDataSharingService logger)
         {
             _service = service;
             _logger = logger;
         }
-
         
         [HttpGet]
-        [Route("GetAllTppBalancesAsync")]
-        public Task<List<TppBalancesDetailDto>> GetAllTppBalancesAsync()
+        [Route("GetAllTppAccountAsync")]
+        public Task<List<TppAccountsDetailDto>> GetAllTppAccountAsync()
         {
-            return _service.GetAllTppBalancesAsync();
+            return _service.GetAllTppAccountAsync();
 
         }
         [HttpPost]
-        [Route("GetTppBalancesByDateAsync")]
-        public Task<List<TppBalancesDetailDto>> GetTppBalancesByDateAsync([FromBody] TppBalancesViewModel tppBalancesViewModel)
+        [Route("GetTppAccountByDateAsync")]
+        public Task<List<TppAccountsDetailDto>> GetTppAccountByDateAsync([FromBody] TppAccountsViewModel tppAccountsViewModel)
         {
-            return _service.GetTppBalancesByDateAsync(tppBalancesViewModel);
+            return _service.GetTppAccountByDateAsync(tppAccountsViewModel);
         }
         
         [HttpGet]
-        [Route("GetTppBalancesByIdAsync")]
-        public Task<TppBalancesDetailDto> GetTppBalancesByIdAsync(long balanceRequestId)
+        [Route("GetTppAccountByIdAsync")]
+        public Task<TppAccountsDetailDto> GetTppAccountByIdAsync(long accountRequestId)
         {
-            return _service.GetTppBalancesByIdAsync(balanceRequestId);
-        }
-
-        [HttpGet]
-        [Route("ValidateConsentId")]
-        public bool ValidateConsentId(string consentId)
-        {
-            return _service.ValidateConsentId(consentId);
+            return _service.GetTppAccountByIdAsync(accountRequestId);
         }
 
         [HttpPost]
-        [Route("SaveBalanceAsync")]
-        public async Task<ResponseStatus> SaveBalanceAsync([FromBody] TppBalancesViewModel tppBalancesViewModel)
+        [Route("SaveAccountAsync")]
+        public async Task<ResponseStatus> SaveAccountAsync([FromBody] TppAccountsViewModel tppAccountsViewModel)
         {
             var responseStatus = new ResponseStatus();
             var errorDetails = new List<ErrorDetail>();
             var errorDetail = new ErrorDetail();
-
             try
             {
-                var tppBalancesRequest = tppBalancesViewModel.tppBalancesRequest;
-                var tppBalancesResponse = tppBalancesViewModel.tppBalancesResponse;
-                long balanceRequestId = await _service.SaveBalanceRequestAsync(tppBalancesRequest);
-                var responseValue = await _service.SaveBalanceResponseAsync(balanceRequestId, tppBalancesResponse);
+                var tppAccountsRequest = tppAccountsViewModel.tppAccountsRequest;
+                var tppAccountsResponse = tppAccountsViewModel.tppAccountsResponse;
+                long balanceRequestId = await _service.SaveAccountRequestAsync(tppAccountsRequest);
+                var responseValue = await _service.SaveAccountResponseAsync(balanceRequestId, tppAccountsResponse);
 
                 if (responseValue == "SUCCESS")
                 {

@@ -17,7 +17,7 @@ namespace DataSharing_API.IService
         Task<List<TppBalancesDetailDto>> GetTppBalancesByDateAsync(TppBalancesViewModel tppBalancesViewModel);
         Task<TppBalancesDetailDto> GetTppBalancesByIdAsync(long balanceRequestId);
         Task<long> SaveBalanceRequestAsync(TppBalancesRequest tppBalancesRequest);
-        Task<string> SaveConsentResponseAsync(long id, TppBalancesResponse tppBalancesResponse);
+        Task<string> SaveBalanceResponseAsync(long id, TppBalancesResponse tppBalancesResponse);
         bool ValidateConsentId(string consentId);
     }
 }
