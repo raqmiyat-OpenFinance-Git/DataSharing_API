@@ -55,6 +55,13 @@ namespace DataSharing_API.Controllers
         {
             return _customerdataservice.FetchDetailsReponse(CorrelationId);
         }
+
+        [HttpGet]
+        [Route("FetchCutomerDetailsResponse")]
+        public Task<List<CustomerResponse>> FetchCutomerDetailsResponse(Guid CorrelationId)
+        {
+            return _customerdataservice.FetchCutomerDetailsResponse(CorrelationId);
+        }
     }
 }
 

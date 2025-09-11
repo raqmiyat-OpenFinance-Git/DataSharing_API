@@ -77,6 +77,30 @@ namespace DataSharing_API.Service
             return result;
         }
 
+        public async Task<List<CustomerResponse>> FetchCutomerDetailsResponse(Guid correlationId)
+        {
+            try
+            {
+                if (correlationId == Guid.Empty)
+                {
+                    // Fetch all data
+                    return await _context.CustomerResponse!.ToListAsync();
+                }
+                else
+                {
+                    // Fetch matching record(s)
+                    return await _context.CustomerResponse!
+                                         .Where(x => x.CorrelationId == correlationId)
+                                         .ToListAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching customer details");
+                return new List<CustomerResponse>();
+            }
+        }
+
         public async Task<CustomerResponse> FetchDetailsReponse(Guid CorrelationId)
         {
             var dbContent = new CustomerResponse();

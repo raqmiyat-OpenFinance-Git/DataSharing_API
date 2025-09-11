@@ -13,5 +13,7 @@ namespace DataSharing_API.IService
         Task<string> ApproveCustomerData(CentralBankCustomerIdResponse customerDataResponse, Guid CorrelationId);
         Task<CustomerResponse> FetchDetailsReponse(Guid CorrelationId);
 
+        Task<List<CustomerResponse>> FetchCutomerDetailsResponse(Guid CorrelationId);
+
     }
 }
