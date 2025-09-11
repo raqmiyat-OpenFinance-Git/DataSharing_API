@@ -33,7 +33,7 @@ namespace DataSharing_API.Service
             {
                 var parameters = new DynamicParameters();
 
-                using (var multi = await _idbConnection.QueryMultipleAsync(_storedProcedureParams.Value.dataSharingSPParams!.GetAllTppBalancesAsync!, parameters, commandType: CommandType.StoredProcedure))
+                using (var multi = await _idbConnection.QueryMultipleAsync(_storedProcedureParams.Value.dataSharingSPParams!.GetAllTppAccountsAsync!, parameters, commandType: CommandType.StoredProcedure))
                 {
                     tppAccountsDetailDtos = multi.Read<TppAccountsDetailDto>().ToList();
                 }
@@ -62,7 +62,7 @@ namespace DataSharing_API.Service
                 parameters.Add("@AccountId", tppAccountsViewModel.ConsentId, DbType.String);
                 parameters.Add("@Action", tppAccountsViewModel.Action, DbType.String);
 
-                using (var multi = await _idbConnection.QueryMultipleAsync(_storedProcedureParams.Value.dataSharingSPParams!.GetTppBalancesByDateAsync!, parameters, commandType: CommandType.StoredProcedure))
+                using (var multi = await _idbConnection.QueryMultipleAsync(_storedProcedureParams.Value.dataSharingSPParams!.GetTppAccountsByDateAsync!, parameters, commandType: CommandType.StoredProcedure))
                 {
                     tppAccountsDetailDtos = multi.Read<TppAccountsDetailDto>().ToList();
                 }
@@ -77,16 +77,16 @@ namespace DataSharing_API.Service
             return tppAccountsDetailDtos;
         }
 
-        public async Task<TppAccountsDetailDto> GetTppAccountByIdAsync(long accountRequestId)
+        public async Task<TppAccountsDetailDto> GetTppAccountByIdAsync(long accountsRequestId)
         {
             _logger.LogInfo("GetTppAccountByIdAsync started.");
             TppAccountsDetailDto tppAccountsDetailDto = new TppAccountsDetailDto();
             try
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@AccountRequestId", accountRequestId, DbType.String);
+                parameters.Add("@AccountsRequestId", accountsRequestId, DbType.String);
 
-                using (var multi = await _idbConnection.QueryMultipleAsync(_storedProcedureParams.Value.dataSharingSPParams!.GetTppBalancesByIdAsync!, parameters, commandType: CommandType.StoredProcedure))
+                using (var multi = await _idbConnection.QueryMultipleAsync(_storedProcedureParams.Value.dataSharingSPParams!.GetTppAccountsByIdAsync!, parameters, commandType: CommandType.StoredProcedure))
                 {
                     tppAccountsDetailDto = multi.Read<TppAccountsDetailDto>().ToList().FirstOrDefault()!;
                 }

@@ -33,6 +33,11 @@ builder.Services.AddDbContext<BalanceDbContext>((sp, options) =>
     var dbParams = sp.GetRequiredService<IOptions<DataBaseConnectionParams>>().Value;
     var connStr = SqlConManager.GetConnectionString(dbParams.DBConnection!, dbParams.IsEncrypted);
     options.UseSqlServer(connStr);
+});builder.Services.AddDbContext<AccountDbContext>((sp, options) =>
+{
+    var dbParams = sp.GetRequiredService<IOptions<DataBaseConnectionParams>>().Value;
+    var connStr = SqlConManager.GetConnectionString(dbParams.DBConnection!, dbParams.IsEncrypted);
+    options.UseSqlServer(connStr);
 });
 builder.Services.AddSingleton(provider =>
 {

@@ -78,5 +78,10 @@
         public string? GetTppBalancesByDateAsync { get; set; }
         public string? GetTppBalancesByIdAsync { get; set; }
 
+        //TppAccounts Enquiry Screen
+        public string? GetAllTppAccountsAsync { get; set; }
+        public string? GetTppAccountsByDateAsync { get; set; }
+        public string? GetTppAccountsByIdAsync { get; set; }
+
     }
 }

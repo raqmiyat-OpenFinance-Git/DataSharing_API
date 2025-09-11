@@ -7,7 +7,7 @@ namespace DataSharing_API.IService
     {
         Task<List<TppAccountsDetailDto>> GetAllTppAccountAsync();
         Task<List<TppAccountsDetailDto>> GetTppAccountByDateAsync(TppAccountsViewModel tppAccountsViewModel);
-        Task<TppAccountsDetailDto> GetTppAccountByIdAsync(long accountRequestId);
+        Task<TppAccountsDetailDto> GetTppAccountByIdAsync(long accountsRequestId);
         Task<long> SaveAccountRequestAsync(TppAccountsRequest tppAccountsRequest);
         Task<string> SaveAccountResponseAsync(long id, TppAccountsResponse tppAccountsResponse);
     }

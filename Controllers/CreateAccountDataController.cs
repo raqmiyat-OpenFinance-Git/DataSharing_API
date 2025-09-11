@@ -35,9 +35,9 @@ namespace DataSharing_API.Controllers
         
         [HttpGet]
         [Route("GetTppAccountByIdAsync")]
-        public Task<TppAccountsDetailDto> GetTppAccountByIdAsync(long accountRequestId)
+        public Task<TppAccountsDetailDto> GetTppAccountByIdAsync(long accountsRequestId)
         {
-            return _service.GetTppAccountByIdAsync(accountRequestId);
+            return _service.GetTppAccountByIdAsync(accountsRequestId);
         }
 
         [HttpPost]

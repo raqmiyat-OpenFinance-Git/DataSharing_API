@@ -51,7 +51,7 @@ public class TppAccountsDetailDto
     public string? ProductId { get; set; }
     public string? ProductName { get; set; }
     public string? BundleName { get; set; }
-    public bool? MultiAuth { get; set; }
+    public bool MultiAuth { get; set; }
     public string? BusinessCustomerId { get; set; }
     public string? BusinessCustomerName { get; set; }
     public string? CustomerId { get; set; }
