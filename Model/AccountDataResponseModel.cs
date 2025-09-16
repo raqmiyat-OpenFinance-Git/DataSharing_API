@@ -43,6 +43,9 @@
         public DateTime? ModifiedOn { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
+        public string? ConsentId { get; set; }
+        public string? TppName { get; set; }
+        public string? TppId { get; set; }
     }
 }
 
