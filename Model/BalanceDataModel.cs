@@ -29,6 +29,7 @@
         public DateTime? ModifiedOn { get; set; }
         public string? O3CallerOrgId { get; set; }
         public string? O3CallerClientId { get; set; }
+        public string? ConsentId { get; set; }
     }
 
 }
