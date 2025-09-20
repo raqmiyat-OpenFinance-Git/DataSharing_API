@@ -1,24 +1,32 @@
-﻿using DataSharing_API.IService;
+﻿using Dapper;
+using DataSharing_API.IService;
+using DataSharing_API.Model;
+using DataSharing_API.Models;
 using DataSharing_API.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using OF.DataSharing.Model.CentralBank;
 using OF.DataSharing.Model.EFModel;
 using OF.ServiceInitiation.CoreBankConn.API.EFModel;
 using OpenFinance.Models;
 using System.Data;
+using System.Data.Common;
 
 namespace DataSharing_API.Service
 {
     public class TppCustomerDataService : ITppCustomerDataService
     {
         private readonly NLogManagerService _logger;
+        private IDbConnection _idbConnection;
         private readonly BalanceDbContext _context;
+        private readonly IOptions<StoredProcedureParams> _storedProcedureParams;
 
-        public TppCustomerDataService(NLogManagerService logger, BalanceDbContext postbalanceDbContext)
+        public TppCustomerDataService(NLogManagerService logger, BalanceDbContext postbalanceDbContext, IOptions<StoredProcedureParams> storedProcedureParams, IDbConnection idbConnection)
         {
             _logger = logger;
-            _context = postbalanceDbContext;
+            _context = postbalanceDbContext;_storedProcedureParams = storedProcedureParams;
+            _idbConnection = idbConnection;
 
         }
         public async Task<List<CustomerDataRequest>> GetTppCustomerList(string User)
@@ -382,6 +390,31 @@ namespace DataSharing_API.Service
             }
             return request;
         }
+
+        public async Task<List<TppCustomerDetailDto>> FetchCutomerDetailsResponse()
+        {
+            _logger.LogInfo("GetAllTppAccountAsync started.");
+            List<TppCustomerDetailDto> tppcustomersDetailDtos = new List<TppCustomerDetailDto>();
+            try
+            {
+                var parameters = new DynamicParameters();
+
+                using (var multi = await _idbConnection.QueryMultipleAsync(_storedProcedureParams.Value.dataSharingSPParams!.GetAllTppCustomerAsync!, parameters, commandType: CommandType.StoredProcedure))
+                {
+                    tppcustomersDetailDtos = multi.Read<TppCustomerDetailDto>().ToList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                _logger.LogError(ex, "Error while fetching GetAllTppAccountAsync");
+                return new List<TppCustomerDetailDto>();
+            }
+            _logger.LogInfo("GetAllTppAccountAsync fetched successfully.");
+            return tppcustomersDetailDtos;
+        }
+
         private async Task<List<CustomerDataRequest>> GetTppCustomerMakerList(string User)
         {
             var result = new List<CustomerRequest>();
@@ -439,5 +472,88 @@ namespace DataSharing_API.Service
             }
             return result;
         }
+
+        public async Task<List<TppCustomerDetailDto>> GetAllTppCustomerAsync()
+        {
+            _logger.LogInfo("GetAllTppCustomerAsync started.");
+            List<TppCustomerDetailDto> tppCustomerDetailDto = new List<TppCustomerDetailDto>();
+            try
+            {
+                var parameters = new DynamicParameters();
+
+                using (var multi = await _idbConnection.QueryMultipleAsync(_storedProcedureParams.Value.dataSharingSPParams!.GetAllTppCustomerAsync!, parameters, commandType: CommandType.StoredProcedure))
+                {
+                    tppCustomerDetailDto = multi.Read<TppCustomerDetailDto>().ToList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                _logger.LogError(ex, "Error while fetching GetAllTppCustomerAsync");
+                return new List<TppCustomerDetailDto>();
+            }
+            _logger.LogInfo("GetAllTppCustomerAsync fetched successfully.");
+            return tppCustomerDetailDto;
+        }
+
+        public async Task<List<TppCustomerDetailDto>> GetTppCustomerByDateAsync(TppCustomerViewDetails tppCustomerViewModel)
+        {
+            _logger.LogInfo("GetTppCustomerByDateAsync started.");
+            List<TppCustomerDetailDto> tppCustomerDetailDto = new List<TppCustomerDetailDto>();
+            try
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@FromDate", tppCustomerViewModel.FromDate, DbType.DateTime);
+                parameters.Add("@ToDate", tppCustomerViewModel.ToDate, DbType.DateTime);
+                parameters.Add("@ConsentId", (object?)tppCustomerViewModel.tppCustomerRequest?.O3ConsentId ?? DBNull.Value, DbType.String);
+                parameters.Add("@AccountId", tppCustomerViewModel.AccountId, DbType.String);
+                parameters.Add("@Action", (object?)tppCustomerViewModel.tppCustomerResponse?.Status ?? DBNull.Value,DbType.String);
+                parameters.Add("@TppName", (object?)tppCustomerViewModel.tppCustomerRequest?.O3CallerOrgId ?? DBNull.Value,DbType.String);
+                parameters.Add("@TppID", (object?)tppCustomerViewModel.tppCustomerRequest?.O3CallerClientId ?? DBNull.Value,DbType.String);
+                parameters.Add("@CustomerId", (object?)tppCustomerViewModel.tppCustomerResponse?.AccountId ?? DBNull.Value, DbType.String);
+                parameters.Add("@CustomerNumber", (object?)tppCustomerViewModel.tppCustomerResponse?.CustomerNumber ?? DBNull.Value, DbType.String);
+                parameters.Add("@ClaimFullName", (object?)tppCustomerViewModel.tppCustomerResponse?.ClaimFullName ?? DBNull.Value, DbType.String);
+
+
+                using (var multi = await _idbConnection.QueryMultipleAsync(_storedProcedureParams.Value.dataSharingSPParams!.GetTppCustomerByDateAsync!, parameters, commandType: CommandType.StoredProcedure))
+                {
+                    tppCustomerDetailDto = multi.Read<TppCustomerDetailDto>().ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error while fetching GetTppCustomerByDateAsync");
+                return new List<TppCustomerDetailDto>();
+            }
+            _logger.LogInfo("GetTppCustomerByDateAsync fetched successfully.");
+            return tppCustomerDetailDto;
+        }
+
+        public async Task<TppCustomerDetailDto> GetTppCustomerByIdAsync(Guid CorrelationId)
+        {
+            _logger.LogInfo("GetTppCustomerByIdAsync started.");
+            TppCustomerDetailDto tppCustomerDetailDto = new TppCustomerDetailDto();
+            try
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@CorrelationId", CorrelationId, DbType.Guid);
+
+                using (var multi = await _idbConnection.QueryMultipleAsync(_storedProcedureParams.Value.dataSharingSPParams!.GetTppCustomerByIdAsync!, parameters, commandType: CommandType.StoredProcedure))
+                {
+                    tppCustomerDetailDto = multi.Read<TppCustomerDetailDto>().ToList().FirstOrDefault()!;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                _logger.LogError(ex, "Error while fetching GetTppCustomerByIdAsync");
+                return new TppCustomerDetailDto();
+            }
+            _logger.LogInfo("GetTppCustomerByIdAsync fetched successfully.");
+            return tppCustomerDetailDto;
+        }
+
     }
 }

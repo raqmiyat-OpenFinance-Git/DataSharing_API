@@ -73,4 +73,7 @@ public class TppAccountsDetailDto
     public string? ResponseModifiedBy { get; set; }
     public DateTime? ResponseModifiedOn { get; set; }
     public string? ResponseJson { get; set; }
+
+    public string? TPPID { get; set; }
+    public string? TPPName { get; set; }
 }

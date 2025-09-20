@@ -83,5 +83,10 @@
         public string? GetTppAccountsByDateAsync { get; set; }
         public string? GetTppAccountsByIdAsync { get; set; }
 
+        //TppCustomers Enquiry Screen
+        public string? GetAllTppCustomerAsync { get; set; }
+        public string? GetTppCustomerByDateAsync { get; set; }
+        public string? GetTppCustomerByIdAsync { get; set; }
+
     }
 }

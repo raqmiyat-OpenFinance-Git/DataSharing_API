@@ -58,10 +58,11 @@ namespace DataSharing_API.Service
                 var parameters = new DynamicParameters();
                 parameters.Add("@FromDate", tppAccountsViewModel.FromDate, DbType.DateTime);
                 parameters.Add("@ToDate", tppAccountsViewModel.ToDate, DbType.DateTime);
-                parameters.Add("@ConsentId", tppAccountsViewModel.ConsentId, DbType.String);
-                parameters.Add("@AccountId", tppAccountsViewModel.ConsentId, DbType.String);
-                parameters.Add("@Action", tppAccountsViewModel.Action, DbType.String);
-
+                parameters.Add("@ConsentId", (object?)tppAccountsViewModel.tppAccountsRequest?.O3ConsentId ?? DBNull.Value, DbType.String);
+                parameters.Add("@AccountId", (object?)tppAccountsViewModel.tppAccountsResponse?.AccountId ?? DBNull.Value, DbType.String);
+                parameters.Add("@Status", (object?)tppAccountsViewModel.tppAccountsResponse?.Status ?? DBNull.Value, DbType.String);
+                parameters.Add("@TppName", (object?)tppAccountsViewModel.tppAccountsRequest?.O3CallerOrgId ?? DBNull.Value, DbType.String);
+                parameters.Add("@TppID", (object?)tppAccountsViewModel.tppAccountsRequest?.O3CallerClientId ?? DBNull.Value, DbType.String);
                 using (var multi = await _idbConnection.QueryMultipleAsync(_storedProcedureParams.Value.dataSharingSPParams!.GetTppAccountsByDateAsync!, parameters, commandType: CommandType.StoredProcedure))
                 {
                     tppAccountsDetailDtos = multi.Read<TppAccountsDetailDto>().ToList();

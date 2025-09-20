@@ -60,8 +60,11 @@ namespace DataSharing_API.Service
                 parameters.Add("@FromDate", tppBalancesViewModel.FromDate, DbType.DateTime);
                 parameters.Add("@ToDate", tppBalancesViewModel.ToDate, DbType.DateTime);
                 parameters.Add("@ConsentId", tppBalancesViewModel.ConsentId, DbType.String);
-                parameters.Add("@AccountId", tppBalancesViewModel.ConsentId, DbType.String);
-                parameters.Add("@Action", tppBalancesViewModel.Action, DbType.String);
+                parameters.Add("@AccountId",(object?) tppBalancesViewModel.tppBalancesResponse?.AccountId ??  DBNull.Value, DbType.String);
+                parameters.Add("@BalanceStatus", (object?) tppBalancesViewModel.tppBalancesResponse?.Status ?? DBNull.Value, DbType.String);
+                parameters.Add("@TppOrganizationId", (object?)tppBalancesViewModel.tppBalancesRequest?.O3CallerOrgId ?? DBNull.Value, DbType.String);
+                parameters.Add("@TppClientId", (object?)tppBalancesViewModel.tppBalancesRequest?.O3CallerClientId ?? DBNull.Value, DbType.String);
+                parameters.Add("@BalanceAmount", (object?)tppBalancesViewModel.tppBalancesResponse?.AccountBalanceAmount ?? DBNull.Value, DbType.Decimal);
 
                 using (var multi = await _idbConnection.QueryMultipleAsync(_storedProcedureParams.Value.dataSharingSPParams!.GetTppBalancesByDateAsync!, parameters, commandType: CommandType.StoredProcedure))
                 {

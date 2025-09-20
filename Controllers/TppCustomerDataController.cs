@@ -1,5 +1,6 @@
 ﻿using DataSharing_API.IService;
 using DataSharing_API.Model;
+using DataSharing_API.Models;
 using Microsoft.AspNetCore.Mvc;
 using OF.DataSharing.Model.CentralBank;
 using OF.DataSharing.Model.EFModel;
@@ -33,7 +34,26 @@ namespace DataSharing_API.Controllers
             return _customerdataservice.GetTppCustomerDetails(CorrelationId);
         }
 
-       
+        [HttpGet]
+        [Route("GetAllTppCustomerAsync")]
+        public Task<List<TppCustomerDetailDto>> GetAllTppCustomerAsync()
+        {
+            return _customerdataservice.GetAllTppCustomerAsync();
+
+        }
+        [HttpPost]
+        [Route("GetTppCustomerByDateAsync")]
+        public Task<List<TppCustomerDetailDto>> GetTppCustomerByDateAsync([FromBody] TppCustomerViewDetails tppCustomerViewModel)
+        {
+            return _customerdataservice.GetTppCustomerByDateAsync(tppCustomerViewModel);
+        }
+
+        [HttpGet]
+        [Route("GetTppCustomerByIdAsync")]
+        public Task<TppCustomerDetailDto> GetTppCustomerByIdAsync(Guid CorrelationId)
+        {
+            return _customerdataservice.GetTppCustomerByIdAsync(CorrelationId);
+        }
 
         [HttpPost]
         [Route("PostCustomerData")]
