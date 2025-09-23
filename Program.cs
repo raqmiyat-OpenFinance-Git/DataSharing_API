@@ -3,11 +3,13 @@ using DataSharing_API.IService;
 using DataSharing_API.Model;
 using DataSharing_API.Service;
 using DataSharing_API.Services;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using OF.ServiceInitiation.CoreBankConn.API.EFModel;
 using System.Data;
-using Microsoft.EntityFrameworkCore;
 
 NLogManagerService _logger = new NLogManagerService();
 var builder = WebApplication.CreateBuilder(args);
@@ -114,8 +116,14 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 
-var app = builder.Build();
+builder.Services.AddHealthChecks();
 
+
+var app = builder.Build();
+app.MapHealthChecks("/health", new HealthCheckOptions()
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 app.UseSwagger();
 app.UseSwaggerUI();
 
