@@ -133,7 +133,7 @@ namespace DataSharing_API.Service
                 entity = new CustomerResponse
                 {
                     CorrelationId = CorrelationId,
-                    AccountId = AccountId,
+                    AccountId = item.id,
                     CustomerNumber = item.number,
                     CustomerCategory = item.customerCategory,
                     CustomerType = item.customerType,
