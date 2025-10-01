@@ -10,6 +10,6 @@ namespace DataSharing_API.IService
 
         Task<AccountDataResponse> GetAccountDataByRefIdAsync(string CorrelationId);
 
-        Task<IEnumerable<AccountDataResponse>> GetAccountDataSearchByIdAsync(string Fromdate, string todate, string ConsentId,string AccountId, string Type);
+        Task<IEnumerable<AccountDataResponse>> GetAccountDataSearchByIdAsync(string Fromdate, string todate, string ConsentId,string AccountId, string Type, string? Accountstatus, string? OrganizationId, string? ClientId);
     }
 }
