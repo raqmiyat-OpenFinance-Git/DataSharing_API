@@ -88,5 +88,10 @@
         public string? GetTppCustomerByDateAsync { get; set; }
         public string? GetTppCustomerByIdAsync { get; set; }
 
+        /* CoPQuery Data */
+        public string? RetrieveCoPQueryData { get; set; }
+        public string? RetrieveCoPQueryDataByRefId { get; set; }
+        public string? RetrieveCoPQueryDataSearchByRefId { get; set; }
+
     }
 }

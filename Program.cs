@@ -83,6 +83,7 @@ builder.Services.AddTransient<ICreateBalanceDataService, CreateBalanceDataServic
 builder.Services.AddTransient<IDashboardService, DashboardService>();
 builder.Services.AddTransient<ITppCustomerDataService, TppCustomerDataService>();
 builder.Services.AddTransient<ICreateAccountDataService, CreateAccountDataService>();
+builder.Services.AddTransient<ILfiCopQueryDataService, LfiCopQueryDataService>();
 
 var AllowSpecificOrigins = "OpenFinance";
 builder.Services.AddCors(options => { options.AddPolicy(name: AllowSpecificOrigins, builder => { builder.AllowAnyOrigin().AllowAnyHeader(); }); });
