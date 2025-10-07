@@ -31,9 +31,9 @@ namespace DataSharing_API.Controllers
 
         [HttpGet]
         [Route("GetAccountDataSearchById")]
-        public Task<IEnumerable<AccountDataResponse>> GetAccountDataSearchById(string Fromdate, string Todate, string? ConsentId, string? AccountId, string? Type)
+        public Task<IEnumerable<AccountDataResponse>> GetAccountDataSearchById(string Fromdate, string Todate, string? ConsentId, string? AccountId, string? Type,string? Accountstatus,string? OrganizationId,string? ClientId)
         {
-            return _accountdataservice.GetAccountDataSearchByIdAsync(Fromdate, Todate, ConsentId!, AccountId, Type);
+            return _accountdataservice.GetAccountDataSearchByIdAsync(Fromdate, Todate, ConsentId!, AccountId!, Type!, Accountstatus, OrganizationId, ClientId);
 
         }
     }

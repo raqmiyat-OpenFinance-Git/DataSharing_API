@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using DataSharing_API.IService;
 using DataSharing_API.Model;
+using DataSharing_API.Models;
 using Microsoft.Extensions.Options;
 using System.Data;
 
@@ -51,7 +52,7 @@ namespace DataSharing_API.Service
                 return null;
             }
         }
-        public async Task<IEnumerable<AccountDataResponse>> GetAccountDataSearchByIdAsync(string Fromdate, string Todate, string ConsentId,string AccountId, string Type)
+        public async Task<IEnumerable<AccountDataResponse>> GetAccountDataSearchByIdAsync(string Fromdate, string Todate, string ConsentId,string AccountId, string Type, string? Accountstatus, string? OrganizationId, string? ClientId)
         {
             try
             {
@@ -62,6 +63,9 @@ namespace DataSharing_API.Service
                 parameters.Add("ConsentId", ConsentId, DbType.String);
                 parameters.Add("AccountId", AccountId, DbType.String);
                 parameters.Add("Type", Type, DbType.String);
+                parameters.Add("@Status", Accountstatus , DbType.String);
+                parameters.Add("@TppName", OrganizationId, DbType.String);
+                parameters.Add("@TppID",ClientId, DbType.String);
                 var result = await _idbConnection.QueryAsync<AccountDataResponse>(
                     _storedProcedureParams.Value.dataSharingSPParams!.RetrieveAccountDataSearchByRefId!,
                     parameters,
