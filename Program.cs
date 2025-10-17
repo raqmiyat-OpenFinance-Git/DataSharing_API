@@ -164,6 +164,7 @@ internal class Program
         services.AddTransient<ILfiCreditCardService, LfiCreditCardService>();
         services.AddTransient<ILfiPersonalLoanService, LfiPersonalLoanService>();
         services.AddTransient<ILfiMortgageService, LfiMortgageService>();
+        services.AddTransient<ILfiProductQuoteMasters, LfiProductQuoteMasters>();
         services.AddTransient<HttpClientHandler>();
         services.AddTransient<Logger>(sp =>
         {

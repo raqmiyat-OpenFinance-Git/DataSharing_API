@@ -119,6 +119,8 @@
         public string? RetrieveLfiMortgageDetailByRefId { get; set; }
         public string? RetrieveLfiMortgageSearch { get; set; }
 
+        public string? RetrieveLfiProductQuoteMaster { get; set; }
+
 
     }
 }
