@@ -167,7 +167,7 @@ internal class Program
         services.AddTransient<HttpClientHandler>();
         services.AddTransient<Logger>(sp =>
         {
-            return LogManager.GetLogger("OF.DataSharing.CentralBankConn.API.Logger");
+            return LogManager.GetLogger("DataSharing_API.Logger");
         });
 
     }
