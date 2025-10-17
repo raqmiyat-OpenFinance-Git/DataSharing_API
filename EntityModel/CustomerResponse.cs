@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace OF.DataSharing.Model.EFModel;
+﻿namespace DataSharing_API.EntityModel;
 
 [Table("Tpp_Customer_Response")]
 public class CustomerResponse
@@ -16,7 +13,7 @@ public class CustomerResponse
     public string? VerifiedClaimTrustFramework { get; set; }
     public string? VerifiedClaimAssuranceLevel { get; set; }
     public string? VerifiedClaimVerificationProcess { get; set; }
-    public  string? VerifiedClaimVerificationTime { get; set; }
+    public string? VerifiedClaimVerificationTime { get; set; }
     public string? AssuranceProcessPolicy { get; set; }
     public string? AssuranceProcessProcedure { get; set; }
     public string? AssuranceType { get; set; }

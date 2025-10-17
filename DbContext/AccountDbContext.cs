@@ -1,8 +1,4 @@
-﻿using DataSharing_API.Models;
-using Microsoft.EntityFrameworkCore;
-using OF.DataSharing.Model.EFModel;
-
-namespace OF.ServiceInitiation.CoreBankConn.API.EFModel;
+﻿namespace DataSharing_API.EFModel;
 
 public class AccountDbContext : DbContext
 {

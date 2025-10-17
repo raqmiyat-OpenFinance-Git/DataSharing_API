@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace OF.DataSharing.Model.EFModel;
+﻿namespace DataSharing_API.EntityModel;
 
 [Table("Tpp_Customer_Request")]
 public class CustomerRequest

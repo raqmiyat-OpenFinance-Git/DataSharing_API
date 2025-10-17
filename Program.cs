@@ -1,137 +1,181 @@
-using DataSharing_API.Custom;
-using DataSharing_API.IService;
-using DataSharing_API.Model;
-using DataSharing_API.Service;
-using DataSharing_API.Services;
-using HealthChecks.UI.Client;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using OF.ServiceInitiation.CoreBankConn.API.EFModel;
-using System.Data;
+using DataSharing_API.IService.LFI;
+using DataSharing_API.IService.TPP;
+using DataSharing_API.Service.LFI;
+using DataSharing_API.Service.TPP;
 
-NLogManagerService _logger = new NLogManagerService();
-var builder = WebApplication.CreateBuilder(args);
-var _dataBaseConnectionParams = builder.Configuration.GetSection(nameof(DataBaseConnectionParams)).Get<DataBaseConnectionParams>();
-string Constr = SqlConManager.GetConnectionString(_dataBaseConnectionParams!.DBConnection!, _dataBaseConnectionParams.IsEncrypted);
-builder.Services.Configure<StoredProcedureParams>(builder.Configuration.GetSection("StoredProcedureParams"));
-builder.Services.Configure<DataBaseConnectionParams>(builder.Configuration.GetSection("DataBaseConnectionParams"));
-builder.Services.Configure<ServiceParams>(builder.Configuration.GetSection("ServiceParams"));
-builder.Services.AddTransient<HttpClientHandler>();
-builder.Services.AddSingleton<ConnectCustom>();
-
-builder.Services.AddHttpClient("HttpClient")
-    .ConfigurePrimaryHttpMessageHandler(
-        () => new HttpClientHandler()
-        {
-            ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
-        }
-    );
-
-// EF Core DbContext
-builder.Services.AddDbContext<BalanceDbContext>((sp, options) =>
+internal class Program
 {
-    var dbParams = sp.GetRequiredService<IOptions<DataBaseConnectionParams>>().Value;
-    var connStr = SqlConManager.GetConnectionString(dbParams.DBConnection!, dbParams.IsEncrypted);
-    options.UseSqlServer(connStr);
-});builder.Services.AddDbContext<AccountDbContext>((sp, options) =>
-{
-    var dbParams = sp.GetRequiredService<IOptions<DataBaseConnectionParams>>().Value;
-    var connStr = SqlConManager.GetConnectionString(dbParams.DBConnection!, dbParams.IsEncrypted);
-    options.UseSqlServer(connStr);
-});
-builder.Services.AddSingleton(provider =>
-{
-    IDbConnection? dbConnection = null;
-    try
+    private static readonly Logger _logger = LogManager.GetLogger("DataSharing_API.Logger");
+    private static void Main(string[] args)
     {
-        var _dataBaseConnectionParams = builder.Configuration.GetSection(nameof(DataBaseConnectionParams)).Get<DataBaseConnectionParams>();
-        dbConnection = new SqlConnection(SqlConManager.GetConnectionString(_dataBaseConnectionParams!.DBConnection!, _dataBaseConnectionParams.IsEncrypted));
-        if (dbConnection.State != ConnectionState.Closed)
+        
+    var builder = WebApplication.CreateBuilder(args);
+
+
+
+        
+        builder.Services.AddHttpClient("HttpClient")
+        .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
         {
+            ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+        });
+
+        // Example HttpClient with BaseAddress
+        var httpBinBaseUrl = builder.Configuration["HttpClients:HttpBinBaseUrl"];
+        builder.Services.AddHttpClient("HttpBinClient", client =>
+        {
+            client.BaseAddress = new Uri(httpBinBaseUrl);
+        });
+
+        // ------------------------ Configuration ------------------------
+        var configuration = builder.Configuration;
+        ConfigureApplicationSettings(builder.Services, configuration);
+        // ------------------------ Database Connection ------------------------
+        RegisterDbConnection(builder.Services);
+        // ------------------------ EF Core DbContexts ------------------------
+        ConfigureBalanceDbContext(builder.Services);
+        ConfigureAccountDbContext(builder.Services);
+        // ------------------------ Transient Services ------------------------
+        RegisterTransientServices(builder.Services);
+        // ------------------------ Singleton Services ------------------------
+        RegisterSingletonServices(builder.Services);
+
+
+
+        // ------------------------ CORS ------------------------
+        var AllowSpecificOrigins = "DataSharing_API";
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy(name: AllowSpecificOrigins, policy =>
+            {
+                policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+            });
+        });
+
+        // ------------------------ Controllers & Swagger ------------------------
+        builder.Services.AddControllers();
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen(c =>
+        {
+            c.CustomSchemaIds(type => type.FullName); // avoids duplicate schema names
+        });
+
+        // ------------------------ Health Checks ------------------------
+        builder.Services.AddHealthChecks();
+
+        var app = builder.Build();
+
+        // ------------------------ Middleware ------------------------
+        app.UseHttpsRedirection();
+        app.UseCors(AllowSpecificOrigins);
+        app.UseAuthorization();
+
+        app.MapControllers();
+        app.UseSwagger();
+        app.UseSwaggerUI();
+
+        // ------------------------ Health Check Endpoint ------------------------
+        app.MapHealthChecks("/health", new HealthCheckOptions
+        {
+            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+        });
+
+        app.Run();
+
+
+       
+    }
+    private static void ConfigureApplicationSettings(IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<ServiceParams>(configuration.GetSection(nameof(ServiceParams)));
+        services.Configure<StoredProcedureParams>(configuration.GetSection(nameof(StoredProcedureParams)));
+        services.Configure<DataBaseConnectionParams>(configuration.GetSection(nameof(DataBaseConnectionParams)));
+    }
+    private static void RegisterDbConnection(IServiceCollection services)
+    {
+        services.AddScoped<IDbConnection>(provider =>
+        {
+            var config = provider.GetRequiredService<IOptions<DataBaseConnectionParams>>().Value;
+
+            var connectionString = SqlConManager.GetConnectionString(
+                config.DBConnection!,
+                config.IsEncrypted
+            );
+
+            var dbConnection = new SqlConnection(connectionString);
+            dbConnection.Open();
             return dbConnection;
-        }
-        dbConnection.Open();
+        });
+
+        
     }
-    catch (Exception ex)
+    // EF Core DbContext
+    private static void ConfigureBalanceDbContext(IServiceCollection services)
     {
-        _logger.LogError(ex);
-        throw;
+        services.AddDbContext<BalanceDbContext>((provider, options) =>
+        {
+            var config = provider.GetRequiredService<IOptions<DataBaseConnectionParams>>().Value;
+
+            var connectionString = SqlConManager.GetConnectionString(
+                config.DBConnection!,
+                config.IsEncrypted
+            );
+
+            options.UseSqlServer(connectionString);
+
+
+        });
     }
-    return dbConnection;
-});
-builder.Services.Configure<ServiceParams>(builder.Configuration.GetSection("ServiceParams"));
+    // EF Core DbContext
+    private static void ConfigureAccountDbContext(IServiceCollection services)
+    {
+        services.AddDbContext<AccountDbContext>((provider, options) =>
+        {
+            var config = provider.GetRequiredService<IOptions<DataBaseConnectionParams>>().Value;
 
-builder.Services.AddSingleton<NLogManagerService>();
-builder.Services.AddSingleton<NLogDataSharingService>();
-builder.Services.AddTransient<ConnectCustom>();
+            var connectionString = SqlConManager.GetConnectionString(
+                config.DBConnection!,
+                config.IsEncrypted
+            );
 
+            options.UseSqlServer(connectionString);
+        });
+    }
+    private static void RegisterTransientServices(IServiceCollection services)
+    {
+        services.AddTransient<ConnectCustom>();
+        services.AddTransient<IBalanceDataService, BalanceDataService>();
+        services.AddTransient<ICustomerDataService, CustomerDataService>();
+        services.AddTransient<IAccountDataService, AccountDataService>();
+        services.AddTransient<IBeneficiariesDataService, BeneficiariesDataService>();
+        services.AddTransient<ITransactionDataService, TransactionDataService>();
+        services.AddTransient<IProductDataService, ProductDataService>();
+        services.AddTransient<ISchedPaymentDataService, SchedPaymentDataService>();
+        services.AddTransient<IStatementDataService, StatementDataService>();
+        services.AddTransient<IDirectDebitDataService, DirectDebitDataService>();
+        services.AddTransient<IStandingOrderDataService, StandingOrderDataService>();
+        services.AddTransient<ICreateBalanceDataService, CreateBalanceDataService>();
+        services.AddTransient<IDashboardService, DashboardService>();
+        services.AddTransient<ITppCustomerDataService, TppCustomerDataService>();
+        services.AddTransient<ICreateAccountDataService, CreateAccountDataService>();
+        services.AddTransient<ILfiCopQueryDataService, LfiCopQueryDataService>();
+        services.AddTransient<ILfiCurrentAccountService, LfiCurrentAccountService>();
+        services.AddTransient<ILfiSavingsAccountService, LfiSavingsAccountService>();
+        services.AddTransient<ILfiCreditCardService, LfiCreditCardService>();
+        services.AddTransient<ILfiPersonalLoanService, LfiPersonalLoanService>();
+        services.AddTransient<ILfiMortgageService, LfiMortgageService>();
+        services.AddTransient<HttpClientHandler>();
+        services.AddTransient<Logger>(sp =>
+        {
+            return LogManager.GetLogger("OF.DataSharing.CentralBankConn.API.Logger");
+        });
 
+    }
 
-builder.Services.AddTransient<IBalanceDataService, BalanceDataService>();
-builder.Services.AddTransient<ICustomerDataService, CustomerDataService>();
-builder.Services.AddTransient<IAccountDataService, AccountDataService>();
-builder.Services.AddTransient<IBeneficiariesDataService, BeneficiariesDataService>();
-builder.Services.AddTransient<ITransactionDataService, TransactionDataService>();
-builder.Services.AddTransient<IProductDataService, ProductDataService>();
-builder.Services.AddTransient<ISchedPaymentDataService, SchedPaymentDataService>();
-builder.Services.AddTransient<IStatementDataService, StatementDataService>();
-builder.Services.AddTransient<IDirectDebitDataService, DirectDebitDataService>();
-builder.Services.AddTransient<IStandingOrderDataService, StandingOrderDataService>();
-builder.Services.AddTransient<ICreateBalanceDataService, CreateBalanceDataService>();
-builder.Services.AddTransient<IDashboardService, DashboardService>();
-builder.Services.AddTransient<ITppCustomerDataService, TppCustomerDataService>();
-builder.Services.AddTransient<ICreateAccountDataService, CreateAccountDataService>();
-builder.Services.AddTransient<ILfiCopQueryDataService, LfiCopQueryDataService>();
-
-var AllowSpecificOrigins = "OpenFinance";
-builder.Services.AddCors(options => { options.AddPolicy(name: AllowSpecificOrigins, builder => { builder.AllowAnyOrigin().AllowAnyHeader(); }); });
-bool isEncrypted = builder.Configuration.GetValue<bool>("DataBaseConnectionParams:IsEncrypted");
-
-string encryptedConnectionString = builder.Configuration.GetValue<string>("DataBaseConnectionParams:DBConnection") ?? "";
-
-if (string.IsNullOrEmpty(encryptedConnectionString))
-{
-    throw new InvalidOperationException("Encrypted connection string is null or empty.");
+    private static void RegisterSingletonServices(IServiceCollection services)
+    {
+        services.AddSingleton<BaseLogger>();
+        services.AddSingleton<DataSharingLogger>();
+    }
+    
 }
-
-string decryptedConnectionString = isEncrypted ? SqlConManager.Decrypt(encryptedConnectionString) : encryptedConnectionString;
-
-
-
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var httpBinBaseUrl = builder.Configuration["HttpClients:HttpBinBaseUrl"];
-
-builder.Services.AddHttpClient("HttpBinClient", client =>
-{
-    client.BaseAddress = new Uri(httpBinBaseUrl);
-});
-
-builder.Services.AddSwaggerGen(c =>
-{
-    c.CustomSchemaIds(type => type.FullName); // prevents duplicate naming issues
-});
-
-
-builder.Services.AddHealthChecks();
-
-
-var app = builder.Build();
-app.MapHealthChecks("/health", new HealthCheckOptions()
-{
-    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-});
-app.UseSwagger();
-app.UseSwaggerUI();
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
