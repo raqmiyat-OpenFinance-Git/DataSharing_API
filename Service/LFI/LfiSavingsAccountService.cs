@@ -92,8 +92,5 @@ public class LfiSavingsAccountService : ILfiSavingsAccountService
 
    
 
-    Task<LfiSavingsAccount?> ILfiSavingsAccountService.GetProductDataByRefIdAsync(long requestId)
-    {
-        throw new NotImplementedException();
-    }
+    
 }
