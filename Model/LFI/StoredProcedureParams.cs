@@ -122,5 +122,12 @@
         public string? RetrieveLfiProductQuoteMaster { get; set; }
 
 
+        /*  CreateLead  */
+
+        public string? RetrieveCreateLead { get; set; }
+        public string? RetrieveCreateLeadByRefId { get; set; }
+        public string? RetrieveCreateLeadSearchByRefId { get; set; }
+
+
     }
 }
