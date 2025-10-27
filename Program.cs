@@ -148,7 +148,7 @@ internal class Program
         services.AddTransient<ICustomerDataService, CustomerDataService>();
         services.AddTransient<IAccountDataService, AccountDataService>();
         services.AddTransient<IBeneficiariesDataService, BeneficiariesDataService>();
-        services.AddTransient<ITransactionDataService, TransactionDataService>();
+        services.AddTransient<ILfiTransactionalDataService, LfiTransactionalDataService>();
         services.AddTransient<IProductDataService, ProductDataService>();
         services.AddTransient<ISchedPaymentDataService, SchedPaymentDataService>();
         services.AddTransient<IStatementDataService, StatementDataService>();
@@ -165,7 +165,6 @@ internal class Program
         services.AddTransient<ILfiPersonalLoanService, LfiPersonalLoanService>();
         services.AddTransient<ILfiMortgageService, LfiMortgageService>();
         services.AddTransient<ILfiProductQuoteMasters, LfiProductQuoteMasters>();
-        services.AddTransient<ILfiCreateLeadService, LfiCreateLeadService>();
         services.AddTransient<HttpClientHandler>();
         services.AddTransient<Logger>(sp =>
         {

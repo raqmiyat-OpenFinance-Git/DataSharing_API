@@ -22,10 +22,6 @@
         public string? RetrieveAccountDataByRefId { get; set; }
         public string? RetrieveAccountDataSearchByRefId { get; set; }
 
-        //Transcation Data
-        public string? RetrieveTransactionData { get; set; }
-        public string? RetrieveTransactionDataByRefId { get; set; }
-        public string? RetrieveTransactionDataSearchByRefId { get; set; }
 
         //Beneficiaries Data
 
@@ -128,6 +124,10 @@
         public string? RetrieveCreateLeadByRefId { get; set; }
         public string? RetrieveCreateLeadSearchByRefId { get; set; }
 
+        //LFI Transcational Data
+        public string? RetrieveLfiTransactionalData { get; set; }
+        public string? RetrieveLfiTransactionalDataByRefId { get; set; }
+        public string? RetrieveLfiTransactionalDataSearch { get; set; }
 
     }
 }
