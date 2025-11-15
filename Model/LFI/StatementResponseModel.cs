@@ -35,6 +35,7 @@
         public string? SummaryCount { get; set; }
         public string? ExpectedChargeAmount { get; set; }
         public string? ExpectedChargeCurrency { get; set; }
+        public string? ExpectedStatementType { get; set; }
         public string? NextPaymentDate { get; set; }
         public string? NextPaymentAmount { get; set; }
         public string? NextPaymentCurrency { get; set; }
@@ -46,6 +47,9 @@
         public DateTime? ModifiedOn { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
+        public string? TppName { get; set; }
+        public string? TppClientId { get; set; }
+        public string? ConsentId { get; set; }
     }
 }
 

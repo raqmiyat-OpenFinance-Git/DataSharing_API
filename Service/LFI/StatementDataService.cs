@@ -46,7 +46,7 @@ public class StatementDataService : IStatementDataService
             return null;
         }
     }
-    public async Task<IEnumerable<StatementResponse>> GetStatementDataSearchByIdAsync(string Fromdate, string Todate, string ConsentId, string AccountId, string Type)
+    public async Task<IEnumerable<StatementResponse>> GetStatementDataSearchByIdAsync(string Fromdate, string Todate, string ConsentId, string AccountId, string Type, string statementstatus, string OrganizationId, string ClientId)
     {
         try
         {
@@ -56,7 +56,9 @@ public class StatementDataService : IStatementDataService
             parameters.Add("Todate", Todate, DbType.String);
             parameters.Add("ConsentId", ConsentId, DbType.String);
             parameters.Add("AccountId", AccountId, DbType.String);
-
+            parameters.Add("StatementStatus", statementstatus, DbType.String);
+            parameters.Add("TppOrganizationId", OrganizationId, DbType.String);
+            parameters.Add("TppClientId", ClientId, DbType.String);
             var result = await _idbConnection.QueryAsync<StatementResponse>(
                 _storedProcedureParams.Value.dataSharingSPParams!.RetrieveStatementDataSearchByRefId!,
                 parameters,

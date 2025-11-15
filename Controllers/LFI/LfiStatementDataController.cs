@@ -4,11 +4,11 @@ namespace DataSharing_API.Controllers.LFI;
 
 [ApiController]
 [Route("api/[controller]")]
-public class StatementDataController : ControllerBase
+public class LfiStatementDataController : ControllerBase
 {
     private readonly IStatementDataService _statementdataservice;
 
-    public StatementDataController(IStatementDataService Statementdataservice)
+    public LfiStatementDataController(IStatementDataService Statementdataservice)
     {
         _statementdataservice = Statementdataservice;
     }
@@ -28,9 +28,9 @@ public class StatementDataController : ControllerBase
     }
     [HttpGet]
     [Route("GetStatementDataSearchById")]
-    public Task<IEnumerable<StatementResponse>> GetStatementDataSearchById(string Fromdate, string Todate, string? ConsentId, string? AccountId, string? Type)
+    public Task<IEnumerable<StatementResponse>> GetStatementDataSearchById(string Fromdate, string Todate, string? ConsentId, string? AccountId, string? Type, string? statementstatus, string? OrganizationId, string? ClientId)
     {
-        return _statementdataservice.GetStatementDataSearchByIdAsync(Fromdate, Todate, ConsentId!, AccountId!, Type!);
+        return _statementdataservice.GetStatementDataSearchByIdAsync(Fromdate, Todate, ConsentId!, AccountId!, Type!,statementstatus!,OrganizationId!,ClientId!);
 
     }
 }
