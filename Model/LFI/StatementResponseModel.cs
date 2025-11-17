@@ -22,11 +22,11 @@
         public string? OpeningBalanceIndicator { get; set; }
         public string? OpeningBalanceAmount { get; set; }
         public string? OpeningBalanceCurrency { get; set; }
-        public string? OpeningBalanceCategory { get; set; }
+        public string? OpeningComponentsBalanceCategory { get; set; }
         public string? ClosingBalanceIndicator { get; set; }
         public string? ClosingBalanceAmount { get; set; }
         public string? ClosingBalanceCurrency { get; set; }
-        public string? ClosingBalanceCategory { get; set; }
+        public string? ClosingComponentsBalanceCategory { get; set; }
         public string? SummaryCreditDebitIndicator { get; set; }
         public string? SummaryTransactionType { get; set; }
         public string? SummarySubTransactionType { get; set; }
