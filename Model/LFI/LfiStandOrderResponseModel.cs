@@ -1,6 +1,6 @@
 ﻿namespace DataSharing_API.Model.LFI
 {
-    public class StandOrderResponseModel
+    public class LfiStandOrderResponseModell
     {
         public List<StandOrderResponse>? standOrderDataResponsesList { get; set; }
 
@@ -44,6 +44,9 @@
         public DateTime? ModifiedOn { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
+        public string? TppName { get; set; }
+        public string? TppClientId { get; set; }
+        public string? ConsentId { get; set; }
     }
 }
 

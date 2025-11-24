@@ -1,6 +1,6 @@
 ﻿namespace DataSharing_API.Model.LFI
 {
-    public class SchedPaymentResponseModel
+    public class LfiSchedPaymentResponseModel
     {
         public List<SchedPaymentResponse>? paymentDataResponsesList { get; set; }
 
@@ -32,6 +32,10 @@
         public DateTime? ModifiedOn { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
+
+        public string? TppName { get; set; }
+        public string? TppClientId { get; set; }
+        public string? ConsentId { get; set; }
     }
 }
 

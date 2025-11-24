@@ -43,20 +43,20 @@
         public string? RetrieveProductDataSearchByRefId { get; set; }
 
 
-        //SchedPayment Data
+        //LFI SchedPayment Data
 
         public string? RetrievePaymentData { get; set; }
         public string? RetrievePaymentDataByRefId { get; set; }
         public string? RetrievePaymentDataSearchByRefId { get; set; }
 
-        //StandingOrder Data
+        //LFI StandingOrder Data
 
         public string? RetrieveStandingOrderData { get; set; }
         public string? RetrieveStandingOrderDataByRefId { get; set; }
         public string? RetrieveStandingOrderDataSearchByRefId { get; set; }
 
 
-        //Statement Data
+        //LFI Statement Data
 
         public string? RetrieveStatementData { get; set; }
         public string? RetrieveStatementDataByRefId { get; set; }

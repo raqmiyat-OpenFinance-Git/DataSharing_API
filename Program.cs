@@ -150,10 +150,10 @@ internal class Program
         services.AddTransient<IBeneficiariesDataService, BeneficiariesDataService>();
         services.AddTransient<ILfiTransactionalDataService, LfiTransactionalDataService>();
         services.AddTransient<IProductDataService, ProductDataService>();
-        services.AddTransient<ISchedPaymentDataService, SchedPaymentDataService>();
+        services.AddTransient<ILfiSchedPaymentDataService, LfiSchedPaymentDataService>();
         services.AddTransient<IStatementDataService, StatementDataService>();
         services.AddTransient<IDirectDebitDataService, DirectDebitDataService>();
-        services.AddTransient<IStandingOrderDataService, StandingOrderDataService>();
+        services.AddTransient<ILfiStandingOrderDataService, LfiStandingOrderDataService>();
         services.AddTransient<ICreateBalanceDataService, CreateBalanceDataService>();
         services.AddTransient<IDashboardService, DashboardService>();
         services.AddTransient<ITppCustomerDataService, TppCustomerDataService>();

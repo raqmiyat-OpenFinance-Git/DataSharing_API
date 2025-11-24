@@ -4,11 +4,11 @@ namespace DataSharing_API.Controllers.LFI;
 
 [ApiController]
 [Route("api/[controller]")]
-public class StandingOrderDataController : ControllerBase
+public class LfiStandingOrderDataController : ControllerBase
 {
-    private readonly IStandingOrderDataService _standorderdataservice;
+    private readonly ILfiStandingOrderDataService _standorderdataservice;
 
-    public StandingOrderDataController(IStandingOrderDataService orderdataservice)
+    public LfiStandingOrderDataController(ILfiStandingOrderDataService orderdataservice)
     {
         _standorderdataservice = orderdataservice;
     }
@@ -29,9 +29,9 @@ public class StandingOrderDataController : ControllerBase
 
     [HttpGet]
     [Route("GetStandOrderDataSearchById")]
-    public Task<IEnumerable<StandOrderResponse>> GetStandOrderDataSearchById(string Fromdate, string Todate, string? ConsentId, string? AccountId, string? Type)
+    public Task<IEnumerable<StandOrderResponse>> GetStandOrderDataSearchById(string Fromdate, string Todate, string? ConsentId, string? AccountId, string? Type, string? Spaymentstatus, string? OrganizationId, string? ClientId)
     {
-        return _standorderdataservice.GetStandOrderDataSearchByIdAsync(Fromdate, Todate, ConsentId!, AccountId!, Type!);
+        return _standorderdataservice.GetStandOrderDataSearchByIdAsync(Fromdate, Todate, ConsentId!, AccountId!, Type!, Spaymentstatus!, OrganizationId!, ClientId!);
 
     }
 }

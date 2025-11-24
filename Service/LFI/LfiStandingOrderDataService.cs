@@ -2,12 +2,12 @@
 
 namespace DataSharing_API.Service.LFI;
 
-public class StandingOrderDataService : IStandingOrderDataService
+public class LfiStandingOrderDataService : ILfiStandingOrderDataService
 {
     private IDbConnection _idbConnection;
     private readonly IOptions<StoredProcedureParams> _storedProcedureParams;
 
-    public StandingOrderDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams)
+    public LfiStandingOrderDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams)
     {
         _idbConnection = idbConnection;
         _storedProcedureParams = storedProcedureParams;
@@ -46,7 +46,7 @@ public class StandingOrderDataService : IStandingOrderDataService
             return null;
         }
     }
-    public async Task<IEnumerable<StandOrderResponse>> GetStandOrderDataSearchByIdAsync(string Fromdate, string Todate, string ConsentId, string AccountId, string Type)
+    public async Task<IEnumerable<StandOrderResponse>> GetStandOrderDataSearchByIdAsync(string Fromdate, string Todate, string ConsentId, string AccountId, string Type, string Spaymentstatus, string OrganizationId, string ClientId)
     {
         try
         {
@@ -56,6 +56,9 @@ public class StandingOrderDataService : IStandingOrderDataService
             parameters.Add("Todate", Todate, DbType.String);
             parameters.Add("ConsentId", ConsentId, DbType.String);
             parameters.Add("AccountId", AccountId, DbType.String);
+            parameters.Add("Spaymentstatus", Spaymentstatus, DbType.String);
+            parameters.Add("TppOrganizationId", OrganizationId, DbType.String);
+            parameters.Add("TppClientId", ClientId, DbType.String);
 
             var result = await _idbConnection.QueryAsync<StandOrderResponse>(
                 _storedProcedureParams.Value.dataSharingSPParams!.RetrieveStandingOrderDataSearchByRefId!,

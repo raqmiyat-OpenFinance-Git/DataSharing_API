@@ -4,11 +4,11 @@ namespace DataSharing_API.Controllers.LFI;
 
 [ApiController]
 [Route("api/[controller]")]
-public class SchedPaymentDataController : ControllerBase
+public class LfiSchedPaymentDataController : ControllerBase
 {
-    private readonly ISchedPaymentDataService _paymentdataservice;
+    private readonly ILfiSchedPaymentDataService _paymentdataservice;
 
-    public SchedPaymentDataController(ISchedPaymentDataService paymentdataservice)
+    public LfiSchedPaymentDataController(ILfiSchedPaymentDataService paymentdataservice)
     {
         _paymentdataservice = paymentdataservice;
     }
@@ -29,9 +29,9 @@ public class SchedPaymentDataController : ControllerBase
 
     [HttpGet]
     [Route("GetPaymentDataSearchById")]
-    public Task<IEnumerable<SchedPaymentResponse>> GetPaymentDataSearchById(string Fromdate, string Todate, string? ConsentId, string? AccountId, string? Type)
+    public Task<IEnumerable<SchedPaymentResponse>> GetPaymentDataSearchById(string Fromdate, string Todate, string? ConsentId, string? AccountId, string? Type, string? Spaymentstatus, string? OrganizationId, string? ClientId)
     {
-        return _paymentdataservice.GetPaymentDataSearchByIdAsync(Fromdate, Todate, ConsentId!, AccountId!, Type!);
+        return _paymentdataservice.GetPaymentDataSearchByIdAsync(Fromdate, Todate, ConsentId!, AccountId!, Type!, Spaymentstatus!, OrganizationId!, ClientId!);
 
     }
 }

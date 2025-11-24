@@ -2,12 +2,12 @@
 
 namespace DataSharing_API.Service.LFI;
 
-public class SchedPaymentDataService : ISchedPaymentDataService
+public class LfiSchedPaymentDataService : ILfiSchedPaymentDataService
 {
     private IDbConnection _idbConnection;
     private readonly IOptions<StoredProcedureParams> _storedProcedureParams;
 
-    public SchedPaymentDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams)
+    public LfiSchedPaymentDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams)
     {
         _idbConnection = idbConnection;
         _storedProcedureParams = storedProcedureParams;
@@ -46,7 +46,7 @@ public class SchedPaymentDataService : ISchedPaymentDataService
             return null;
         }
     }
-    public async Task<IEnumerable<SchedPaymentResponse>> GetPaymentDataSearchByIdAsync(string Fromdate, string Todate, string ConsentId, string AccountId, string Type)
+    public async Task<IEnumerable<SchedPaymentResponse>> GetPaymentDataSearchByIdAsync(string Fromdate, string Todate, string ConsentId, string AccountId, string Type, string Spaymentstatus, string OrganizationId, string ClientId)
     {
         try
         {
@@ -56,6 +56,9 @@ public class SchedPaymentDataService : ISchedPaymentDataService
             parameters.Add("Todate", Todate, DbType.String);
             parameters.Add("ConsentId", ConsentId, DbType.String);
             parameters.Add("AccountId", AccountId, DbType.String);
+            parameters.Add("Spaymentstatus", Spaymentstatus, DbType.String);
+            parameters.Add("TppOrganizationId", OrganizationId, DbType.String);
+            parameters.Add("TppClientId", ClientId, DbType.String);
 
             var result = await _idbConnection.QueryAsync<SchedPaymentResponse>(
                 _storedProcedureParams.Value.dataSharingSPParams!.RetrievePaymentDataSearchByRefId!,
