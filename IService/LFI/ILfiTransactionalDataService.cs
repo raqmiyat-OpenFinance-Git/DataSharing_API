@@ -7,5 +7,5 @@ public interface ILfiTransactionalDataService
     Task<LfiTransactionalData> GetTransactionalDataByRefIdAsync(long requestId);
 
     Task<IEnumerable<LfiTransactionalData>> GetTransactionalDataSearchByIdAsync(string? fromdate, string? toDate,
-        string? consentId, string? accountId, string? currentStatus, string? paymentCategory);
+        string? consentId, string? accountId, string? currentStatus, string? paymentCategory, string? OrganizationId, string? ClientId);
 }

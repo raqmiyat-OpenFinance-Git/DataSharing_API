@@ -54,7 +54,7 @@ public class LfiTransactionalDataService : ILfiTransactionalDataService
         }
     }
 
-    public async Task<IEnumerable<LfiTransactionalData>> GetTransactionalDataSearchByIdAsync(string? fromdate, string? toDate, string? consentId, string? accountId, string? currentStatus, string? paymentCategory)
+    public async Task<IEnumerable<LfiTransactionalData>> GetTransactionalDataSearchByIdAsync(string? fromdate, string? toDate, string? consentId, string? accountId, string? currentStatus, string? paymentCategory, string? OrganizationId, string? ClientId)
     {
         try
         {
@@ -66,6 +66,8 @@ public class LfiTransactionalDataService : ILfiTransactionalDataService
             parameters.Add("AccountId", accountId, DbType.String);
             parameters.Add("CurrentStatus", currentStatus, DbType.String);
             parameters.Add("PaymentCategory", paymentCategory, DbType.String);
+            parameters.Add("TppOrganizationId", OrganizationId, DbType.String);
+            parameters.Add("TppClientId", ClientId, DbType.String);
             var result = await _idbConnection.QueryAsync<LfiTransactionalData>(
                 _storedProcedureParams.Value.dataSharingSPParams!.RetrieveLfiTransactionalDataSearch!,
                 parameters,

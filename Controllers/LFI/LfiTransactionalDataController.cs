@@ -38,10 +38,10 @@ public class LfiTransactionalDataController : ControllerBase
         [FromQuery] string? consentId = null,
         [FromQuery] string? accountId = null,
         [FromQuery] string? currentStatus = null,
-        [FromQuery] string? paymentCategory = null)
+        [FromQuery] string? paymentCategory = null, [FromQuery] string? OrganizationId= null, [FromQuery] string? ClientId = null)
     {
         var result = await _lfiTransactionalDataService.GetTransactionalDataSearchByIdAsync(
-            fromDate, toDate, consentId, accountId, currentStatus, paymentCategory);
+            fromDate, toDate, consentId, accountId, currentStatus, paymentCategory, OrganizationId, ClientId);
 
         return Ok(result);
     }
