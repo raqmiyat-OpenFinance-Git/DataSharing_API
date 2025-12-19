@@ -1,5 +1,4 @@
 ﻿using DataSharing_API.IService.LFI;
-using DataSharing_API.Service.LFI;
 
 namespace DataSharing_API.Controllers.LFI;
 
@@ -38,10 +37,10 @@ public class LfiTransactionalDataController : ControllerBase
         [FromQuery] string? consentId = null,
         [FromQuery] string? accountId = null,
         [FromQuery] string? currentStatus = null,
-        [FromQuery] string? paymentCategory = null, [FromQuery] string? OrganizationId= null, [FromQuery] string? ClientId = null)
+        [FromQuery] string? paymentCategory = null, [FromQuery] string? OrganizationId= null, [FromQuery] string? ClientId = null, [FromQuery] string? PaymentTransactionId= null)
     {
         var result = await _lfiTransactionalDataService.GetTransactionalDataSearchByIdAsync(
-            fromDate, toDate, consentId, accountId, currentStatus, paymentCategory, OrganizationId, ClientId);
+            fromDate, toDate, consentId, accountId, currentStatus, paymentCategory, OrganizationId, ClientId, PaymentTransactionId);
 
         return Ok(result);
     }
