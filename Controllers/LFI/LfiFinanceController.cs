@@ -4,11 +4,11 @@ namespace DataSharing_API.Controllers.LFI;
 
 [ApiController]
 [Route("api/[controller]")]
-public class LfiPersonalLoanController : ControllerBase
+public class LfiFinanceController : ControllerBase
 {
-    private readonly ILfiPersonalLoanService _lfiPersonalLoanService;
+    private readonly ILfiFinanceService _lfiPersonalLoanService;
 
-    public LfiPersonalLoanController(ILfiPersonalLoanService lfiPersonalLoanService)
+    public LfiFinanceController(ILfiFinanceService lfiPersonalLoanService)
     {
         _lfiPersonalLoanService = lfiPersonalLoanService;
     }

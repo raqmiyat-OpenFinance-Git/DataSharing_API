@@ -1,19 +1,16 @@
-﻿using OpenTelemetry.Trace;
-using System.Net.NetworkInformation;
+﻿namespace DataSharing_API.IService.LFI;
 
-namespace DataSharing_API.IService.LFI;
-
-public interface ILfiPersonalLoanService
+public interface ILfiFinanceService
 {
     /// <summary>
     /// Retrieves all product data records linked to a specific product quote.
     /// </summary>
-    Task<IEnumerable<LfiPersonalLoan>> GetProductDataListAsync(int productQuoteId);
+    Task<IEnumerable<LfiFinance>> GetProductDataListAsync(int productQuoteId);
 
     /// <summary>
     /// Searches for current account records based on filter criteria.
     /// </summary>
-    Task<IEnumerable<LfiPersonalLoan>> GetProductDataSearchAsync(
+    Task<IEnumerable<LfiFinance>> GetProductDataSearchAsync(
          string? fromDate = null,
         string? toDate = null,
         string? type = null,
@@ -31,7 +28,7 @@ public interface ILfiPersonalLoanService
     /// <summary>
     /// Retrieves detailed product data by the RequestId (unique reference).
     /// </summary>
-    Task<LfiPersonalLoan?> GetProductDataByRefIdAsync(long requestId);
+    Task<LfiFinance?> GetProductDataByRefIdAsync(long requestId);
 }
 
 

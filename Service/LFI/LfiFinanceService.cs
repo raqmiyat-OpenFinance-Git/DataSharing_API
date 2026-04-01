@@ -2,25 +2,25 @@
 
 namespace DataSharing_API.Service.LFI;
 
-public class LfiPersonalLoanService : ILfiPersonalLoanService
+public class LfiFinanceService : ILfiFinanceService
 {
     private IDbConnection _idbConnection;
     private readonly IOptions<StoredProcedureParams> _storedProcedureParams;
 
-    public LfiPersonalLoanService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams)
+    public LfiFinanceService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams)
     {
         _idbConnection = idbConnection;
         _storedProcedureParams = storedProcedureParams;
     }
 
-    public async Task<IEnumerable<LfiPersonalLoan>> GetProductDataListAsync(int productQuoteId)
+    public async Task<IEnumerable<LfiFinance>> GetProductDataListAsync(int productQuoteId)
     {
         try
         {
             var parameters = new DynamicParameters();
             parameters.Add("ProductQuoteId", productQuoteId, DbType.Int32);
 
-            var result = await _idbConnection.QueryAsync<LfiPersonalLoan>(
+            var result = await _idbConnection.QueryAsync<LfiFinance>(
                 _storedProcedureParams.Value.dataSharingSPParams!.RetrieveLfiPersonalLoanDetail!,
                 parameters,
                 commandType: CommandType.StoredProcedure
@@ -31,12 +31,12 @@ public class LfiPersonalLoanService : ILfiPersonalLoanService
         catch (Exception ex)
         {
             // Consider logging here (e.g., NLog or ILogger)
-            return Enumerable.Empty<LfiPersonalLoan>();
+            return Enumerable.Empty<LfiFinance>();
         }
     }
 
 
-    public async Task<IEnumerable<LfiPersonalLoan>> GetProductDataSearchAsync(
+    public async Task<IEnumerable<LfiFinance>> GetProductDataSearchAsync(
            string? fromDate = null, string? toDate = null, string? type = null, string? description = null, decimal? minimumLoanAmount = null, string? minimumLoanCurrency = null, decimal? minTenure = null, decimal? indicativeRateFrom = null, string? rateType = null, string? documentationType = null, string? feesName = null, string? benefitsName = null, string? status = null)
     {
         try
@@ -58,7 +58,7 @@ public class LfiPersonalLoanService : ILfiPersonalLoanService
 
 
 
-            var result = await _idbConnection.QueryAsync<LfiPersonalLoan>(
+            var result = await _idbConnection.QueryAsync<LfiFinance>(
                 _storedProcedureParams.Value.dataSharingSPParams!.RetrieveLfiPersonalLoanSearch!,
                 parameters,
                 commandType: CommandType.StoredProcedure
@@ -69,18 +69,18 @@ public class LfiPersonalLoanService : ILfiPersonalLoanService
         catch (Exception ex)
         {
             // Consider logging here (e.g., NLog or ILogger)
-            return Enumerable.Empty<LfiPersonalLoan>();
+            return Enumerable.Empty<LfiFinance>();
         }
     }
 
-    public async Task<LfiPersonalLoan?> GetProductDataByRefIdAsync(long requestId)
+    public async Task<LfiFinance?> GetProductDataByRefIdAsync(long requestId)
     {
         try
         {
             var parameters = new DynamicParameters();
             parameters.Add("RequestId", requestId, DbType.Int64);
 
-            var result = await _idbConnection.QueryFirstOrDefaultAsync<LfiPersonalLoan>(
+            var result = await _idbConnection.QueryFirstOrDefaultAsync<LfiFinance>(
                 _storedProcedureParams.Value.dataSharingSPParams!.RetrieveLfiPersonalLoanDetailByRefId!,
                 parameters,
                 commandType: CommandType.StoredProcedure

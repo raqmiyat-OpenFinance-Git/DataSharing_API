@@ -162,7 +162,7 @@ internal class Program
         services.AddTransient<ILfiCurrentAccountService, LfiCurrentAccountService>();
         services.AddTransient<ILfiSavingsAccountService, LfiSavingsAccountService>();
         services.AddTransient<ILfiCreditCardService, LfiCreditCardService>();
-        services.AddTransient<ILfiPersonalLoanService, LfiPersonalLoanService>();
+        services.AddTransient<ILfiFinanceService, LfiFinanceService>();
         services.AddTransient<ILfiMortgageService, LfiMortgageService>();
         services.AddTransient<ILfiProductQuoteMasters, LfiProductQuoteMasters>();
         services.AddTransient<ILfiCreateLeadService, LfiCreateLeadService>();
