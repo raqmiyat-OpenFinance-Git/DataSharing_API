@@ -95,7 +95,9 @@ public class LfiFinance
 
     public string? FeaturesType { get; set; }
     public string? FeaturesDescription { get; set; }
-
+    public string? ChargeType { get; set; }
+    public string? ChargeDescription { get; set; }
+    public string? ChargeName { get; set; }
     public decimal? ChargeAmount { get; set; }
     public string? ChargeCurrency { get; set; }
     public decimal? ChargeRate { get; set; }
@@ -103,7 +105,7 @@ public class LfiFinance
     public string? ChargeInterestCalculationMethod { get; set; }
 
     public decimal? MaximumChargeAmount { get; set; }
-    public string? MaximumChargeAmountCurrency { get; set; }
+    public string? MaximumChargeCurrency { get; set; }
 
     public string? ChargeBasis { get; set; }
 
