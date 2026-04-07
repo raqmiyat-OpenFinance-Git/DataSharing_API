@@ -30,21 +30,20 @@ public class LfiCreditCardController : ControllerBase
     /// </summary>
     [HttpGet("GetProductDataSearchAsync")]
     public async Task<IActionResult> GetProductDataSearchAsync(
-        [FromQuery] string? fromDate = null,
-        [FromQuery] string? toDate = null,
-        [FromQuery] string? type = null,
-        [FromQuery] string? description = null,
-        [FromQuery] decimal? Rate = null,
-        [FromQuery] string? documentationType = null,
-        [FromQuery] string? feesName = null,
-        [FromQuery] string? benefitsName = null,
-        [FromQuery] string? limitsType = null,
-        [FromQuery] string? currency = null,
-        [FromQuery] string? status = null)
+    [FromQuery] string? fromDate = null,
+    [FromQuery] string? toDate = null,
+    [FromQuery] string? type = null,
+    [FromQuery] string? documentationType = null,
+    [FromQuery] decimal? chargeRate = null,
+    [FromQuery] decimal? fixedRate = null,
+    [FromQuery] string? chargeName = null,
+    [FromQuery] decimal? chargeAmount = null,
+    [FromQuery] decimal? limitsAmount = null,
+    [FromQuery] string? status = null)
     {
         var result = await _lfiCreditCardService.GetProductDataSearchAsync(
-            fromDate, toDate, type, description, Rate,
-            documentationType, feesName, benefitsName, limitsType, currency, status);
+            fromDate, toDate, type, documentationType, chargeRate,
+            fixedRate, chargeName, chargeAmount, limitsAmount, status);
 
         return Ok(result);
     }

@@ -30,20 +30,21 @@ public class LfiSavingsAccountController : ControllerBase
     /// </summary>
     [HttpGet("GetProductDataSearchAsync")]
     public async Task<IActionResult> GetProductDataSearchAsync(
-        [FromQuery] string? fromDate = null,
-        [FromQuery] string? toDate = null,
-        [FromQuery] string? type = null,
-        [FromQuery] string? description = null,
-        [FromQuery] decimal? minimumBalance = null,
-        [FromQuery] decimal? annualReturn = null,
-        [FromQuery] string? documentationType = null,
-        [FromQuery] string? feesName = null,
-        [FromQuery] string? currency = null,
-        [FromQuery] string? status = null)
+    [FromQuery] string? fromDate = null,
+    [FromQuery] string? toDate = null,
+    [FromQuery] string? type = null,
+    [FromQuery] decimal? minimumBalance = null,
+    [FromQuery] string? documentationType = null,
+    [FromQuery] string? rateType = null,
+    [FromQuery] decimal? annualRate = null,
+    [FromQuery] string? chargeName = null,
+    [FromQuery] decimal? chargeAmount = null,
+    [FromQuery] decimal? limitsAmount = null,
+    [FromQuery] string? status = null)
     {
         var result = await _lfiSavingsAccountService.GetProductDataSearchAsync(
-            fromDate, toDate, type, description, minimumBalance, annualReturn,
-            documentationType, feesName, currency, status);
+            fromDate, toDate, type, minimumBalance,
+            documentationType, rateType, annualRate, chargeName, chargeAmount, limitsAmount, status);
 
         return Ok(result);
     }

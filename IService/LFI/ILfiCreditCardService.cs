@@ -14,17 +14,16 @@ public interface ILfiCreditCardService
     /// Searches for current account records based on filter criteria.
     /// </summary>
     Task<IEnumerable<LfiCreditCard>> GetProductDataSearchAsync(
-         string? fromDate = null,
-        string? toDate = null,
-        string? type = null,
-        string? description = null,
-        decimal? Rate = null,
-        string? documentationType = null,
-        string? feesName = null,
-        string? benefitsName = null,
-        string? limitsType = null,
-        string? currency = null, 
-        string? status = null);
+    string? fromDate = null,
+    string? toDate = null,
+    string? type = null,
+    string? documentationType = null,
+    decimal? chargeRate = null,
+    decimal? fixedRate = null,
+    string? chargeName = null,
+    decimal? chargeAmount = null,
+    decimal? limitsAmount = null,
+    string? status = null);
 
     /// <summary>
     /// Retrieves detailed product data by the RequestId (unique reference).

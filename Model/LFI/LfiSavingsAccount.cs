@@ -90,7 +90,7 @@ public class LfiSavingsAccount
     // Account details
     public decimal? MinimumBalance { get; set; }
     public string Currency { get; set; }
-    public decimal? AnnualReturn { get; set; }
+    public decimal? AnnualRate { get; set; }
 
     // Documentation
     public string DocumentationType { get; set; }
@@ -100,26 +100,38 @@ public class LfiSavingsAccount
     public string FeaturesType { get; set; }
     public string FeaturesDescription { get; set; }
 
-    // Fees
-    public string FeesType { get; set; }
-    public string FeesPeriod { get; set; }
-    public string FeesName { get; set; }
-    public string FeesDescription { get; set; }
-    public string FeesUnit { get; set; }
-    public decimal? FeesAmount { get; set; }
-    public string FeesCurrency { get; set; }
-    public decimal? FeesPercentage { get; set; }
-    public decimal? FeesUnitValue { get; set; }
-    public decimal? FeesMaximumUnitValue { get; set; }
+    // Charges
+    public string? ChargeType { get; set; }
+    public string? ChargeDescription { get; set; }
+    public string? ChargeName { get; set; }
+    public decimal? ChargeAmount { get; set; }
+    public string? ChargeCurrency { get; set; }
+    public decimal? ChargeRate { get; set; }
+    public string? ChargeApplicationFrequency { get; set; }
+    public string? ChargeInterestCalculationMethod { get; set; }
+    public decimal? MaximumChargeAmount { get; set; }
+    public string? MaximumChargeCurrency { get; set; }
+    public string? ChargeBasis { get; set; }
+
+    // Conditions
+
+    public string? ConditionsField { get; set; }
+    public string? ConditionsOperator { get; set; }
+    public string? ConditionsValue { get; set; }
+    public string? ConditionsDescription { get; set; }
+
+    public string? Justification { get; set; }
+    public string? Frequency { get; set; }
+
+    public bool? DonatedToCharity { get; set; }
+
+    public string? Notes { get; set; }
+    public string? SupplementaryInformation { get; set; }
 
     // Limits
     public string LimitsType { get; set; }
     public string LimitsDescription { get; set; }
+    public decimal? LimitsAmount { get; set; }
+    public string? LimitsCurrency { get; set; }
     public decimal? LimitsValue { get; set; }
-
-    // Benefits
-    public string BenefitsType { get; set; }
-    public string BenefitsName { get; set; }
-    public string BenefitsDescription { get; set; }
-    public decimal? BenefitsValue { get; set; }
 }

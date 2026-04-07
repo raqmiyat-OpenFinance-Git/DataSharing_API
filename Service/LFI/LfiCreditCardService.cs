@@ -37,7 +37,16 @@ public class LfiCreditCardService : ILfiCreditCardService
 
 
     public async Task<IEnumerable<LfiCreditCard>> GetProductDataSearchAsync(
-           string? fromDate = null, string? toDate = null, string? type = null, string? description = null, decimal? Rate = null, string? documentationType = null, string? feesName = null, string? benefitsName = null, string? limitsType = null, string? currency = null, string? status = null)
+    string? fromDate = null,
+    string? toDate = null,
+    string? type = null,
+    string? documentationType = null,
+    decimal? chargeRate = null,
+    decimal? fixedRate = null,
+    string? chargeName = null,
+    decimal? chargeAmount = null,
+    decimal? limitsAmount = null,
+    string? status = null)
     {
         try
         {
@@ -45,16 +54,13 @@ public class LfiCreditCardService : ILfiCreditCardService
             parameters.Add("FromDate", fromDate, DbType.String);
             parameters.Add("ToDate", toDate, DbType.String);
             parameters.Add("Type", type, DbType.String);
-            parameters.Add("Description", description, DbType.String);
-            parameters.Add("Rate", Rate, DbType.Decimal);
             parameters.Add("DocumentationType", documentationType, DbType.String);
-            parameters.Add("FeesName", feesName, DbType.String);
-            parameters.Add("BenefitsName", benefitsName, DbType.String);
-            parameters.Add("LimitsType", limitsType, DbType.String);
-            parameters.Add("Currency", currency, DbType.String);
+            parameters.Add("FixedRate", fixedRate, DbType.Decimal);
+            parameters.Add("ChargeRate", chargeRate, DbType.Decimal);
+            parameters.Add("ChargeName", chargeName, DbType.String);
+            parameters.Add("ChargeAmount", chargeAmount, DbType.Decimal);
+            parameters.Add("LimitsAmount", limitsAmount, DbType.Decimal);
             parameters.Add("Status", status, DbType.String);
-
-
 
             var result = await _idbConnection.QueryAsync<LfiCreditCard>(
                 _storedProcedureParams.Value.dataSharingSPParams!.RetrieveLfiCreditCardSearch!,

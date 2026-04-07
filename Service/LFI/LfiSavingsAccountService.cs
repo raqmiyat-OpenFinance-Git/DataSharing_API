@@ -34,10 +34,19 @@ public class LfiSavingsAccountService : ILfiSavingsAccountService
             return Enumerable.Empty<LfiSavingsAccount>();
         }
     }
-    
 
     public async Task<IEnumerable<LfiSavingsAccount>> GetProductDataSearchAsync(
-           string? fromDate = null, string? toDate = null, string? type = null, string? description = null, decimal? minimumBalance = null, decimal? annualReturn = null, string? documentationType = null, string? feesName = null, string? currency = null, string? status = null)
+    string? fromDate = null,
+    string? toDate = null,
+    string? type = null,
+    decimal? minimumBalance = null,
+    string? documentationType = null,
+    string? rateType = null,
+    decimal? annualRate = null,
+    string? chargeName = null,
+    decimal? chargeAmount = null,
+    decimal? limitsAmount = null,
+    string? status = null)
     {
         try
         {
@@ -45,12 +54,13 @@ public class LfiSavingsAccountService : ILfiSavingsAccountService
             parameters.Add("FromDate", fromDate, DbType.String);
             parameters.Add("ToDate", toDate, DbType.String);
             parameters.Add("Type", type, DbType.String);
-            parameters.Add("Description", description, DbType.String);
             parameters.Add("MinimumBalance", minimumBalance, DbType.Decimal);
-            parameters.Add("AnnualReturn", annualReturn, DbType.Decimal);
             parameters.Add("DocumentationType", documentationType, DbType.String);
-            parameters.Add("FeesName", feesName, DbType.String);
-            parameters.Add("Currency", currency, DbType.String);
+            parameters.Add("AnnualRate", annualRate, DbType.Decimal);
+            parameters.Add("RateType", rateType, DbType.String);
+            parameters.Add("ChargeName", chargeName, DbType.String);
+            parameters.Add("ChargeAmount", chargeAmount, DbType.Decimal);
+            parameters.Add("LimitsAmount", limitsAmount, DbType.Decimal);
             parameters.Add("Status", status, DbType.String);
 
             var result = await _idbConnection.QueryAsync<LfiSavingsAccount>(
@@ -89,8 +99,4 @@ public class LfiSavingsAccountService : ILfiSavingsAccountService
             return null;
         }
     }
-
-   
-
-    
 }

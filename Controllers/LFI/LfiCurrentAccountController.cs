@@ -30,20 +30,19 @@ public class LfiCurrentAccountController : ControllerBase
     /// </summary>
     [HttpGet("GetProductDataSearchAsync")]
     public async Task<IActionResult> GetProductDataSearchAsync(
-        [FromQuery] string? fromDate = null,
-        [FromQuery] string? toDate = null,
-        [FromQuery] string? type = null,
-        [FromQuery] string? description = null,
-        [FromQuery] bool? isOverdraftAvailable = null,
-        [FromQuery] string? documentationType = null,
-        [FromQuery] string? feesName = null,
-        [FromQuery] string? benefitsName = null,
-        [FromQuery] string? currency = null,
-        [FromQuery] string? status = null)
+    [FromQuery] string? fromDate = null,
+    [FromQuery] string? toDate = null,
+    [FromQuery] string? type = null,
+    [FromQuery] bool? isOverdraftAvailable = null,
+    [FromQuery] string? documentationType = null,
+    [FromQuery] decimal? rateType = null,
+    [FromQuery] decimal? chargeAmount = null,
+    [FromQuery] decimal? limitsAmount = null,
+    [FromQuery] string? status = null)
     {
         var result = await _lfiCurrentAccountService.GetProductDataSearchAsync(
-            fromDate, toDate, type, description, isOverdraftAvailable,
-            documentationType, feesName, benefitsName, currency, status);
+            fromDate, toDate, type, isOverdraftAvailable,
+            documentationType, rateType, chargeAmount, limitsAmount, status);
 
         return Ok(result);
     }

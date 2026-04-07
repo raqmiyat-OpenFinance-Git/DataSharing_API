@@ -37,16 +37,15 @@ public class LfiCurrentAccountService : ILfiCurrentAccountService
     
 
     public async Task<IEnumerable<LfiCurrentAccount>> GetProductDataSearchAsync(
-            string? fromDate = null,
-            string? toDate = null,
-            string? type = null,
-            string? description = null,
-            bool? isOverdraftAvailable = null,
-            string? documentationType = null,
-            string? feesName = null,
-            string? benefitsName = null,
-            string? currency = null,
-            string? status = null)
+    string? fromDate = null,
+    string? toDate = null,
+    string? type = null,
+    bool? isOverdraftAvailable = null,
+    string? documentationType = null,
+    decimal? rateType = null,
+    decimal? chargeAmount = null,
+    decimal? limitsAmount = null,
+    string? status = null)
     {
         try
         {
@@ -54,12 +53,11 @@ public class LfiCurrentAccountService : ILfiCurrentAccountService
             parameters.Add("FromDate", fromDate, DbType.String);
             parameters.Add("ToDate", toDate, DbType.String);
             parameters.Add("Type", type, DbType.String);
-            parameters.Add("Description", description, DbType.String);
             parameters.Add("IsOverdraftAvailable", isOverdraftAvailable, DbType.Boolean);
             parameters.Add("DocumentationType", documentationType, DbType.String);
-            parameters.Add("FeesName", feesName, DbType.String);
-            parameters.Add("BenefitsName", benefitsName, DbType.String);
-            parameters.Add("Currency", currency, DbType.String);
+            parameters.Add("RateType", rateType, DbType.Decimal);
+            parameters.Add("ChargeAmount", chargeAmount, DbType.Decimal);
+            parameters.Add("LimitsAmount", limitsAmount, DbType.Decimal);
             parameters.Add("Status", status, DbType.String);
 
             var result = await _idbConnection.QueryAsync<LfiCurrentAccount>(
