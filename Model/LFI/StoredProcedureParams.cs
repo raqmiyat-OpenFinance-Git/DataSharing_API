@@ -69,20 +69,7 @@
         public string? GetConsent_Status { get; set; }
         public string? InsertBalanceDataDetails { get; set; }
 
-        //TppBalance Enquiry Screen
-        public string? GetAllTppBalancesAsync { get; set; }
-        public string? GetTppBalancesByDateAsync { get; set; }
-        public string? GetTppBalancesByIdAsync { get; set; }
-
-        //TppAccounts Enquiry Screen
-        public string? GetAllTppAccountsAsync { get; set; }
-        public string? GetTppAccountsByDateAsync { get; set; }
-        public string? GetTppAccountsByIdAsync { get; set; }
-
-        //TppCustomers Enquiry Screen
-        public string? GetAllTppCustomerAsync { get; set; }
-        public string? GetTppCustomerByDateAsync { get; set; }
-        public string? GetTppCustomerByIdAsync { get; set; }
+     
 
         /* CoPQuery Data */
         public string? RetrieveCoPQueryData { get; set; }
@@ -129,5 +116,39 @@
         public string? RetrieveLfiTransactionalDataByRefId { get; set; }
         public string? RetrieveLfiTransactionalDataSearch { get; set; }
 
+        //TppAccounts Enquiry Screen
+        public string? GetAllTppAccountsAsync { get; set; }
+        public string? GetTppAccountsByDateAsync { get; set; }
+        public string? GetTppAccountsByIdAsync { get; set; }
+
+        //TppBalance Enquiry Screen
+        public string? GetAllTppBalancesAsync { get; set; }
+        public string? GetTppBalancesByDateAsync { get; set; }
+        public string? GetTppBalancesByIdAsync { get; set; }
+
+
+
+        //TppBeneficiaries Enquiry Screen
+        public string? GetAllTppBeneficiariesAsync { get; set; }
+        public string? GetTppBeneficiariesByDateAsync { get; set; }
+        public string? GetTppBeneficiariesByIdAsync { get; set; }
+
+        //TppDirectDebit Enquiry Screen
+        public string? GetAllTppDirectDebitAsync { get; set; }
+        public string? GetTppDirectDebitByDateAsync { get; set; }
+        public string? GetTppDirectDebitByIdAsync { get; set; }
+
+
+        //TppDirectDebit Enquiry Screen
+        public string? GetAllTppSchedPaymentAsync { get; set; }
+        public string? GetTppSchedPaymentByDateAsync { get; set; }
+        public string? GetTppSchedPaymentByIdAsync { get; set; }
+
+
+
+        //TppCustomers Enquiry Screen
+        public string? GetAllTppCustomerAsync { get; set; }
+        public string? GetTppCustomerByDateAsync { get; set; }
+        public string? GetTppCustomerByIdAsync { get; set; }
     }
 }

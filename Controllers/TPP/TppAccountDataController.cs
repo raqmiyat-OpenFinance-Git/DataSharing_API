@@ -14,14 +14,14 @@ public class TppAccountDataController : ControllerBase
     }
     [HttpGet]
     [Route("GetTppAccountDataList")]
-    public Task<IEnumerable<TPPAccounDataResponse>> GetTppAccountDataList()
+    public Task<IEnumerable<TPPAccountDataResponse>> GetTppAccountDataList()
     {
         return _tppaccountdataservice.GetTppAccountDataListAsync();
 
     }
     [HttpGet]
     [Route("GetTppAccountDataByRefId")]
-    public Task<TPPAccounDataResponse> GetTppAccountDataByRefId(string CorrelationId)
+    public Task<TPPAccountDataResponse> GetTppAccountDataByRefId(string CorrelationId)
     {
         return _tppaccountdataservice.GetTppAccountDataByRefIdAsync(CorrelationId);
 
@@ -29,7 +29,7 @@ public class TppAccountDataController : ControllerBase
 
     [HttpGet]
     [Route("GetTppAccountDataSearchById")]
-    public Task<IEnumerable<TPPAccounDataResponse>> GetTppAccountDataSearchById(string Fromdate, string Todate, string? ConsentId, string? AccountId, string? Type, string? Accountstatus, string? OrganizationId, string? ClientId)
+    public Task<IEnumerable<TPPAccountDataResponse>> GetTppAccountDataSearchById(string Fromdate, string Todate, string? ConsentId, string? AccountId, string? Type, string? Accountstatus, string? OrganizationId, string? ClientId)
     {
         return _tppaccountdataservice.GetTppAccountDataSearchByIdAsync(Fromdate, Todate, ConsentId!, AccountId!, Type!, Accountstatus, OrganizationId, ClientId);
 

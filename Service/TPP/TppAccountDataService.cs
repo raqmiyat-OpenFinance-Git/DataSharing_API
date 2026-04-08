@@ -12,11 +12,11 @@ public class TppAccountDataService : ITppAccountDataService
         _idbConnection = idbConnection;
         _storedProcedureParams = storedProcedureParams;
     }
-    public async Task<IEnumerable<TPPAccounDataResponse>> GetTppAccountDataListAsync()
+    public async Task<IEnumerable<TPPAccountDataResponse>> GetTppAccountDataListAsync()
     {
         try
         {
-            var result = await _idbConnection.QueryAsync<TPPAccounDataResponse>(
+            var result = await _idbConnection.QueryAsync<TPPAccountDataResponse>(
                 _storedProcedureParams.Value.dataSharingSPParams!.GetAllTppAccountsAsync!,
                 commandType: CommandType.StoredProcedure
             );
@@ -24,18 +24,18 @@ public class TppAccountDataService : ITppAccountDataService
         }
         catch (Exception ex)
         {
-            return Enumerable.Empty<TPPAccounDataResponse>();
+            return Enumerable.Empty<TPPAccountDataResponse>();
         }
     }
 
-    public async Task<TPPAccounDataResponse?> GetTppAccountDataByRefIdAsync(string CorrelationId)
+    public async Task<TPPAccountDataResponse?> GetTppAccountDataByRefIdAsync(string CorrelationId)
     {
         try
         {
             var parameters = new DynamicParameters();
             parameters.Add("CorrelationId", CorrelationId, DbType.String);
 
-            var result = await _idbConnection.QueryFirstOrDefaultAsync<TPPAccounDataResponse>(
+            var result = await _idbConnection.QueryFirstOrDefaultAsync<TPPAccountDataResponse>(
                 _storedProcedureParams.Value.dataSharingSPParams!.GetTppAccountsByIdAsync!,
                 parameters,
                 commandType: CommandType.StoredProcedure
@@ -47,7 +47,7 @@ public class TppAccountDataService : ITppAccountDataService
             return null;
         }
     }
-    public async Task<IEnumerable<TPPAccounDataResponse>> GetTppAccountDataSearchByIdAsync(string Fromdate, string Todate, string ConsentId, string AccountId, string Type, string? Accountstatus, string? OrganizationId, string? ClientId)
+    public async Task<IEnumerable<TPPAccountDataResponse>> GetTppAccountDataSearchByIdAsync(string Fromdate, string Todate, string ConsentId, string AccountId, string Type, string? Accountstatus, string? OrganizationId, string? ClientId)
     {
         try
         {
@@ -61,7 +61,7 @@ public class TppAccountDataService : ITppAccountDataService
             parameters.Add("@Status", Accountstatus, DbType.String);
             //parameters.Add("@TppName", OrganizationId, DbType.String);
             //parameters.Add("@TppID", ClientId, DbType.String);
-            var result = await _idbConnection.QueryAsync<TPPAccounDataResponse>(
+            var result = await _idbConnection.QueryAsync<TPPAccountDataResponse>(
                 _storedProcedureParams.Value.dataSharingSPParams!.GetTppAccountsByDateAsync!,
                 parameters,
                 commandType: CommandType.StoredProcedure

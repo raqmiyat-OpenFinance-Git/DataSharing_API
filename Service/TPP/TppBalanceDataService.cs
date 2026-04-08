@@ -50,7 +50,7 @@ public class TppBalanceDataService : ITppBalanceDataService
             return null;
         }
     }
-    public async Task<IEnumerable<TppBalanceData?>> GetTppBalanceDataSearchByIdAsync(string AccountId, string Fromdate, string Todate, string ConsentId, string balancestatus, string OrganizationId, string ClientId, string amount)
+    public async Task<IEnumerable<TppBalanceData?>> GetTppBalanceDataSearchByIdAsync(string AccountId, string Fromdate, string Todate, string ConsentId, string balancestatus, string LFIName, string LFIId, string amount)
     {
         try
         {

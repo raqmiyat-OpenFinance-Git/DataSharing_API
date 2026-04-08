@@ -2,11 +2,11 @@
 {
     public class TPPAccounDataModel
     {
-        public List<TPPAccounDataResponse>? tppaccountDataResponseList { get; set; }
+        public List<TPPAccountDataResponse>? tppaccountDataResponseList { get; set; }
 
-        public TPPAccounDataResponse? tppaccountDataResponses { get; set; }
+        public TPPAccountDataResponse? tppaccountDataResponses { get; set; }
     }
-    public class TPPAccounDataResponse
+    public class TPPAccountDataResponse
     {
         public long Id { get; set; }
         public Guid CorrelationId { get; set; }

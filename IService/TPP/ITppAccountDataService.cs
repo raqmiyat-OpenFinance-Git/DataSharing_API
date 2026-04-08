@@ -2,9 +2,9 @@
 
 public interface ITppAccountDataService
 {
-    Task<IEnumerable<TPPAccounDataResponse>> GetTppAccountDataListAsync();
+    Task<IEnumerable<TPPAccountDataResponse>> GetTppAccountDataListAsync();
 
-    Task<TPPAccounDataResponse> GetTppAccountDataByRefIdAsync(string CorrelationId);
+    Task<TPPAccountDataResponse> GetTppAccountDataByRefIdAsync(string CorrelationId);
 
-    Task<IEnumerable<TPPAccounDataResponse>> GetTppAccountDataSearchByIdAsync(string Fromdate, string todate, string ConsentId, string AccountId, string Type, string? Accountstatus, string? OrganizationId, string? ClientId);
+    Task<IEnumerable<TPPAccountDataResponse>> GetTppAccountDataSearchByIdAsync(string Fromdate, string todate, string ConsentId, string AccountId, string Type, string? Accountstatus, string? OrganizationId, string? ClientId);
 }

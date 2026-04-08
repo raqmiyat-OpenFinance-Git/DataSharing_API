@@ -29,9 +29,9 @@ public class TppBalanceDataController : ControllerBase
 
     [HttpGet]
     [Route("GetTppBalanceDataSearchById")]
-    public Task<IEnumerable<TppBalanceData>> GetTppBalanceDataSearchById(string? AccountId, string Fromdate, string Todate, string? ConsentId, string? balancestatus, string? OrganizationId, string? ClientId, string? amount)
+    public Task<IEnumerable<TppBalanceData>> GetTppBalanceDataSearchById(string? AccountId, string Fromdate, string Todate, string? ConsentId, string? balancestatus, string? LFIName, string? LFIId, string? amount)
     {
-        return _tppbalancedataservice.GetTppBalanceDataSearchByIdAsync(AccountId!, Fromdate, Todate, ConsentId!, balancestatus!, OrganizationId!, ClientId!, amount!);
+        return _tppbalancedataservice.GetTppBalanceDataSearchByIdAsync(AccountId!, Fromdate, Todate, ConsentId!, balancestatus!, LFIName!, LFIId!, amount!);
 
     }
 }

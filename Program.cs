@@ -168,6 +168,9 @@ internal class Program
         services.AddTransient<ILfiCreateLeadService, LfiCreateLeadService>();
         services.AddTransient<ITppAccountDataService, TppAccountDataService>();
         services.AddTransient<ITppBalanceDataService, TppBalanceDataService>();
+        services.AddTransient<ITppBeneficiariesDataService, TppBeneficiariesDataService>();
+        services.AddTransient<ITppDirectDebitDataService, TppDirectDebitDataService>();
+        services.AddTransient<ITppSchedPaymentDataService, TppSchedPaymentDataService>();
         services.AddTransient<HttpClientHandler>();
         services.AddTransient<Logger>(sp =>
         {
