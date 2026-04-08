@@ -167,6 +167,7 @@ internal class Program
         services.AddTransient<ILfiProductQuoteMasters, LfiProductQuoteMasters>();
         services.AddTransient<ILfiCreateLeadService, LfiCreateLeadService>();
         services.AddTransient<ITppAccountDataService, TppAccountDataService>();
+        services.AddTransient<ITppBalanceDataService, TppBalanceDataService>();
         services.AddTransient<HttpClientHandler>();
         services.AddTransient<Logger>(sp =>
         {
