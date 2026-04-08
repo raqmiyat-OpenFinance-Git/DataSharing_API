@@ -1,27 +1,17 @@
-﻿namespace DataSharing_API.Model.LFI;
-public class LfiMortgage
+﻿namespace DataSharing_API.Model.TPP;
+public class TppMortgage
 {
 
-    //LfiProductDataRequest
+    //TppProductDataRequest
     public long RequestId { get; set; }
     public Guid CorrelationId { get; set; }
-    public int? PageNumber { get; set; }
-    public int? PageSize { get; set; }
-    public string O3ProviderId { get; set; }
-    public string O3AspspId { get; set; }
-    public string O3CallerOrgId { get; set; }
-    public string O3CallerClientId { get; set; }
-    public string O3CallerSoftwareStatementId { get; set; }
-    public string O3ApiUri { get; set; }
-    public string O3ApiOperation { get; set; }
-    public string O3CallerInteractionId { get; set; }
-    public string O3OzoneInteractionId { get; set; }
+    public string? Authorization { get; set; }
+    public string CustomerIpAddress { get; set; }
     public string ProductCategory { get; set; }
     public bool? IsShariaCompliant { get; set; }
     public string LastUpdatedDateTime { get; set; }
     public string SortOrder { get; set; }
     public string SortField { get; set; }
-    public string CustomerIpAddress { get; set; }
     public string Status { get; set; }
     public string CreatedBy { get; set; }
     public DateTime? CreatedOn { get; set; }
@@ -30,7 +20,7 @@ public class LfiMortgage
     public string RequestJson { get; set; }
 
 
-    //LfiProductDataResponse
+    //TppProductDataResponse
 
     public long Id { get; set; }
     public long ResponseRequestId { get; set; }

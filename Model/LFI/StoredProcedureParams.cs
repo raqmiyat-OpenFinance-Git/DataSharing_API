@@ -104,12 +104,44 @@
 
         public string? RetrieveLfiProductQuoteMaster { get; set; }
 
+        /* TPP Current Account */
+        public string? RetrieveTppCurrentAccountDetail { get; set; }
+        public string? RetrieveTppCurrentAccountDetailByRefId { get; set; }
+        public string? RetrieveTppCurrentAccountSearch { get; set; }
+
+        /* TPP Savings Account */
+        public string? RetrieveTppSavingsAccountDetail { get; set; }
+        public string? RetrieveTppSavingsAccountDetailByRefId { get; set; }
+        public string? RetrieveTppSavingsAccountSearch { get; set; }
+
+        /* TPP Credit Card */
+        public string? RetrieveTppCreditCardDetail { get; set; }
+        public string? RetrieveTppCreditCardDetailByRefId { get; set; }
+        public string? RetrieveTppCreditCardSearch { get; set; }
+
+        /* TPP Personal Loan */
+        public string? RetrieveTppPersonalLoanDetail { get; set; }
+        public string? RetrieveTppPersonalLoanDetailByRefId { get; set; }
+        public string? RetrieveTppPersonalLoanSearch { get; set; }
+
+        /* TPP Mortgage */
+        public string? RetrieveTppMortgageDetail { get; set; }
+        public string? RetrieveTppMortgageDetailByRefId { get; set; }
+        public string? RetrieveTppMortgageSearch { get; set; }
+
+        public string? RetrieveTppProductQuoteMaster { get; set; }
 
         /*  CreateLead  */
 
         public string? RetrieveCreateLead { get; set; }
         public string? RetrieveCreateLeadByRefId { get; set; }
         public string? RetrieveCreateLeadSearchByRefId { get; set; }
+
+        /*  Create TPP Lead  */
+
+        public string? RetrieveTppCreateLead { get; set; }
+        public string? RetrieveTppCreateLeadByRefId { get; set; }
+        public string? RetrieveTppCreateLeadSearchByRefId { get; set; }
 
         //LFI Transcational Data
         public string? RetrieveLfiTransactionalData { get; set; }

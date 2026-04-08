@@ -1,16 +1,16 @@
-﻿using DataSharing_API.IService.LFI;
+﻿using DataSharing_API.IService.TPP;
 
-namespace DataSharing_API.Controllers.LFI;
+namespace DataSharing_API.Controllers.TPP;
 
 [ApiController]
 [Route("api/[controller]")]
-public class LfiFinanceController : ControllerBase
+public class TppFinanceController : ControllerBase
 {
-    private readonly ILfiFinanceService _lfiPersonalLoanService;
+    private readonly ITppFinanceService _tppPersonalLoanService;
 
-    public LfiFinanceController(ILfiFinanceService lfiPersonalLoanService)
+    public TppFinanceController(ITppFinanceService tppPersonalLoanService)
     {
-        _lfiPersonalLoanService = lfiPersonalLoanService;
+        _tppPersonalLoanService = tppPersonalLoanService;
     }
     /// <summary>
     /// Retrieves list of current account product data by ProductQuoteId.
@@ -21,7 +21,7 @@ public class LfiFinanceController : ControllerBase
         if (productQuoteId <= 0)
             return BadRequest("Invalid ProductQuoteId");
 
-        var result = await _lfiPersonalLoanService.GetProductDataListAsync(productQuoteId);
+        var result = await _tppPersonalLoanService.GetProductDataListAsync(productQuoteId);
         return Ok(result);
     }
 
@@ -42,7 +42,7 @@ public class LfiFinanceController : ControllerBase
     [FromQuery] decimal? limitsAmount = null,
     [FromQuery] string? status = null)
     {
-        var result = await _lfiPersonalLoanService.GetProductDataSearchAsync(
+        var result = await _tppPersonalLoanService.GetProductDataSearchAsync(
             fromDate, toDate, type, minimumFinanceAmount, maximumFinanceAmount, chargeRate,
             fixedRate, chargeName, chargeAmount, limitsAmount, status);
 
@@ -58,13 +58,11 @@ public class LfiFinanceController : ControllerBase
         if (requestId <= 0)
             return BadRequest("Invalid RequestId");
 
-        var result = await _lfiPersonalLoanService.GetProductDataByRefIdAsync(requestId);
+        var result = await _tppPersonalLoanService.GetProductDataByRefIdAsync(requestId);
         if (result == null)
             return NotFound($"No record found for RequestId: {requestId}");
 
         return Ok(result);
     }
-
-
 }
 

@@ -1,21 +1,19 @@
-﻿using OpenTelemetry.Trace;
-using System.Net.NetworkInformation;
+﻿namespace DataSharing_API.IService.TPP;
 
-namespace DataSharing_API.IService.LFI;
-
-public interface ILfiMortgageService
+public interface ITppFinanceService
 {
     /// <summary>
     /// Retrieves all product data records linked to a specific product quote.
     /// </summary>
-    Task<IEnumerable<LfiMortgage>> GetProductDataListAsync(int productQuoteId);
+    Task<IEnumerable<TppFinance>> GetProductDataListAsync(int productQuoteId);
 
     /// <summary>
     /// Searches for current account records based on filter criteria.
     /// </summary>
-    Task<IEnumerable<LfiMortgage>> GetProductDataSearchAsync(
+    Task<IEnumerable<TppFinance>> GetProductDataSearchAsync(
     string? fromDate = null,
     string? toDate = null,
+    string? type = null,
     decimal? minimumFinanceAmount = null,
     decimal? maximumFinanceAmount = null,
     decimal? chargeRate = null,
@@ -28,6 +26,7 @@ public interface ILfiMortgageService
     /// <summary>
     /// Retrieves detailed product data by the RequestId (unique reference).
     /// </summary>
-    Task<LfiMortgage?> GetProductDataByRefIdAsync(long requestId);
+    Task<TppFinance?> GetProductDataByRefIdAsync(long requestId);
 }
+
 

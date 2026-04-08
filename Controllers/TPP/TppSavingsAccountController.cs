@@ -1,16 +1,16 @@
-﻿using DataSharing_API.IService.LFI;
+﻿using DataSharing_API.IService.TPP;
 
-namespace DataSharing_API.Controllers.LFI;
+namespace DataSharing_API.Controllers.TPP;
 
 [ApiController]
 [Route("api/[controller]")]
-public class LfiFinanceController : ControllerBase
+public class TppSavingsAccountController : ControllerBase
 {
-    private readonly ILfiFinanceService _lfiPersonalLoanService;
+    private readonly ITppSavingsAccountService _tppSavingsAccountService;
 
-    public LfiFinanceController(ILfiFinanceService lfiPersonalLoanService)
+    public TppSavingsAccountController(ITppSavingsAccountService tppSavingsAccountService)
     {
-        _lfiPersonalLoanService = lfiPersonalLoanService;
+        _tppSavingsAccountService = tppSavingsAccountService;
     }
     /// <summary>
     /// Retrieves list of current account product data by ProductQuoteId.
@@ -21,7 +21,7 @@ public class LfiFinanceController : ControllerBase
         if (productQuoteId <= 0)
             return BadRequest("Invalid ProductQuoteId");
 
-        var result = await _lfiPersonalLoanService.GetProductDataListAsync(productQuoteId);
+        var result = await _tppSavingsAccountService.GetProductDataListAsync(productQuoteId);
         return Ok(result);
     }
 
@@ -33,22 +33,22 @@ public class LfiFinanceController : ControllerBase
     [FromQuery] string? fromDate = null,
     [FromQuery] string? toDate = null,
     [FromQuery] string? type = null,
-    [FromQuery] decimal? minimumFinanceAmount = null,
-    [FromQuery] decimal? maximumFinanceAmount = null,
-    [FromQuery] decimal? chargeRate = null,
-    [FromQuery] decimal? fixedRate = null,
+    [FromQuery] decimal? minimumBalance = null,
+    [FromQuery] string? documentationType = null,
+    [FromQuery] string? rateType = null,
+    [FromQuery] decimal? annualRate = null,
     [FromQuery] string? chargeName = null,
     [FromQuery] decimal? chargeAmount = null,
     [FromQuery] decimal? limitsAmount = null,
     [FromQuery] string? status = null)
     {
-        var result = await _lfiPersonalLoanService.GetProductDataSearchAsync(
-            fromDate, toDate, type, minimumFinanceAmount, maximumFinanceAmount, chargeRate,
-            fixedRate, chargeName, chargeAmount, limitsAmount, status);
+        var result = await _tppSavingsAccountService.GetProductDataSearchAsync(
+            fromDate, toDate, type, minimumBalance,
+            documentationType, rateType, annualRate, chargeName, chargeAmount, limitsAmount, status);
 
         return Ok(result);
     }
-   
+
     /// <summary>
     /// Retrieves product data by unique RequestId.
     /// </summary>
@@ -58,13 +58,11 @@ public class LfiFinanceController : ControllerBase
         if (requestId <= 0)
             return BadRequest("Invalid RequestId");
 
-        var result = await _lfiPersonalLoanService.GetProductDataByRefIdAsync(requestId);
+        var result = await _tppSavingsAccountService.GetProductDataByRefIdAsync(requestId);
         if (result == null)
             return NotFound($"No record found for RequestId: {requestId}");
 
         return Ok(result);
     }
-
-
 }
 

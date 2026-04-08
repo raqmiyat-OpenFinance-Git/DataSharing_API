@@ -1,27 +1,18 @@
-﻿namespace DataSharing_API.Model.LFI;
-public class LfiMortgage
+﻿namespace DataSharing_API.Model.TPP;
+
+public class TppCreditCard
 {
 
-    //LfiProductDataRequest
+    //TppProductDataRequest
     public long RequestId { get; set; }
     public Guid CorrelationId { get; set; }
-    public int? PageNumber { get; set; }
-    public int? PageSize { get; set; }
-    public string O3ProviderId { get; set; }
-    public string O3AspspId { get; set; }
-    public string O3CallerOrgId { get; set; }
-    public string O3CallerClientId { get; set; }
-    public string O3CallerSoftwareStatementId { get; set; }
-    public string O3ApiUri { get; set; }
-    public string O3ApiOperation { get; set; }
-    public string O3CallerInteractionId { get; set; }
-    public string O3OzoneInteractionId { get; set; }
+    public string? Authorization { get; set; }
+    public string CustomerIpAddress { get; set; }
     public string ProductCategory { get; set; }
     public bool? IsShariaCompliant { get; set; }
     public string LastUpdatedDateTime { get; set; }
     public string SortOrder { get; set; }
     public string SortField { get; set; }
-    public string CustomerIpAddress { get; set; }
     public string Status { get; set; }
     public string CreatedBy { get; set; }
     public DateTime? CreatedOn { get; set; }
@@ -30,7 +21,7 @@ public class LfiMortgage
     public string RequestJson { get; set; }
 
 
-    //LfiProductDataResponse
+    //TppProductDataResponse
 
     public long Id { get; set; }
     public long ResponseRequestId { get; set; }
@@ -79,26 +70,23 @@ public class LfiMortgage
     public DateTime? ResponseModifiedOn { get; set; }
     public string ResponsePayload { get; set; }
 
-    //Mortgage
-
-    public Guid MortgageId { get; set; }
-    public long MortgageRequestId { get; set; }
+    //Credit Card
+    public Guid CreditCardId { get; set; }
+    public long CreditCardRequestId { get; set; }
     public string Type { get; set; }
-    public decimal? MinimumFinanceAmount { get; set; }
-    public string? MinimumFinanceCurrency { get; set; }
+    public string CreditCardDescription { get; set; }
 
-    public decimal? MaximumFinanceAmount { get; set; }
-    public string? MaximumFinanceCurrency { get; set; }
+    public decimal? FixedRate { get; set; }
 
-    public string? DownPaymentCustomerCategory { get; set; }
-    public decimal? DownPaymentMinimumPercent { get; set; }
-    public string? DownPaymentBasis { get; set; }
+    // Documentation
+    public string DocumentationType { get; set; }
+    public string DocumentationDescription { get; set; }
 
-    public string? DocumentationType { get; set; }
-    public string? DocumentationDescription { get; set; }
+    // Features
+    public string FeaturesType { get; set; }
+    public string FeaturesDescription { get; set; }
 
-    public string? FeaturesType { get; set; }
-    public string? FeaturesDescription { get; set; }
+    // Charges
     public string? ChargeType { get; set; }
     public string? ChargeDescription { get; set; }
     public string? ChargeName { get; set; }
@@ -107,11 +95,11 @@ public class LfiMortgage
     public decimal? ChargeRate { get; set; }
     public string? ChargeApplicationFrequency { get; set; }
     public string? ChargeInterestCalculationMethod { get; set; }
-
     public decimal? MaximumChargeAmount { get; set; }
     public string? MaximumChargeCurrency { get; set; }
-
     public string? ChargeBasis { get; set; }
+
+    // Conditions
 
     public string? ConditionsField { get; set; }
     public string? ConditionsOperator { get; set; }
@@ -126,9 +114,10 @@ public class LfiMortgage
     public string? Notes { get; set; }
     public string? SupplementaryInformation { get; set; }
 
-    public string? LimitsType { get; set; }
-    public string? LimitsDescription { get; set; }
-    public decimal? LimitsValue { get; set; }
+    // Limits
+    public string LimitsType { get; set; }
+    public string LimitsDescription { get; set; }
     public decimal? LimitsAmount { get; set; }
     public string? LimitsCurrency { get; set; }
+    public decimal? LimitsValue { get; set; }
 }
