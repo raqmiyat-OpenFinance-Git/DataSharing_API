@@ -15,7 +15,7 @@ public interface ILfiFinanceService
     string? toDate = null,
     string? type = null,
     decimal? minimumFinanceAmount = null,
-    string? minimumFinanceCurrency = null,
+    decimal? maximumFinanceAmount = null,
     decimal? chargeRate = null,
     decimal? fixedRate = null,
     string? chargeName = null,

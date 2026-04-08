@@ -37,7 +37,17 @@ public class TppFinanceService : ITppFinanceService
 
 
     public async Task<IEnumerable<TppFinance>> GetProductDataSearchAsync(
-           string? fromDate = null, string? toDate = null, string? type = null, string? description = null, decimal? minimumLoanAmount = null, string? minimumLoanCurrency = null, decimal? minTenure = null, decimal? indicativeRateFrom = null, string? rateType = null, string? documentationType = null, string? feesName = null, string? benefitsName = null, string? status = null)
+    string? fromDate = null,
+    string? toDate = null,
+    string? type = null,
+    decimal? minimumFinanceAmount = null,
+    decimal? maximumFinanceAmount = null,
+    decimal? chargeRate = null,
+    decimal? fixedRate = null,
+    string? chargeName = null,
+    decimal? chargeAmount = null,
+    decimal? limitsAmount = null,
+    string? status = null)
     {
         try
         {
@@ -45,18 +55,13 @@ public class TppFinanceService : ITppFinanceService
             parameters.Add("FromDate", fromDate, DbType.String);
             parameters.Add("ToDate", toDate, DbType.String);
             parameters.Add("Type", type, DbType.String);
-            parameters.Add("Description", description, DbType.String);
-            parameters.Add("MinimumLoanAmount", minimumLoanAmount, DbType.Decimal);
-            parameters.Add("MinimumLoanCurrency", minimumLoanCurrency, DbType.Decimal);
-            parameters.Add("MinTenure", minTenure, DbType.Decimal);
-            parameters.Add("IndicativeRateFrom", indicativeRateFrom, DbType.Decimal);
-            parameters.Add("RateType", rateType, DbType.String);
-            parameters.Add("DocumentationType", documentationType, DbType.String);
-            parameters.Add("FeesName", feesName, DbType.String);
-            parameters.Add("BenefitsName", benefitsName, DbType.String);
+            parameters.Add("MinimumFinanceAmount", minimumFinanceAmount, DbType.Decimal);
+            parameters.Add("MaximumFinanceAmount", maximumFinanceAmount, DbType.Decimal);
+            parameters.Add("ChargeRate", chargeRate, DbType.Decimal);
+            parameters.Add("ChargeName", chargeName, DbType.String);
+            parameters.Add("ChargeAmount", chargeAmount, DbType.Decimal);
+            parameters.Add("LimitsAmount", limitsAmount, DbType.Decimal);
             parameters.Add("Status", status, DbType.String);
-
-
 
             var result = await _idbConnection.QueryAsync<TppFinance>(
                 _storedProcedureParams.Value.dataSharingSPParams!.RetrieveTppPersonalLoanSearch!,

@@ -11,19 +11,17 @@ public interface ITppFinanceService
     /// Searches for current account records based on filter criteria.
     /// </summary>
     Task<IEnumerable<TppFinance>> GetProductDataSearchAsync(
-         string? fromDate = null,
-        string? toDate = null,
-        string? type = null,
-        string? description = null,
-        decimal? minimumLoanAmount = null,
-        string? minimumLoanCurrency = null,
-        decimal? minTenure = null,
-        decimal? indicativeRateFrom = null,
-        string? rateType = null,
-        string? documentationType = null,
-        string? feesName = null,
-        string? benefitsName = null,
-        string? status = null);
+    string? fromDate = null,
+    string? toDate = null,
+    string? type = null,
+    decimal? minimumFinanceAmount = null,
+    decimal? maximumFinanceAmount = null,
+    decimal? chargeRate = null,
+    decimal? fixedRate = null,
+    string? chargeName = null,
+    decimal? chargeAmount = null,
+    decimal? limitsAmount = null,
+    string? status = null);
 
     /// <summary>
     /// Retrieves detailed product data by the RequestId (unique reference).

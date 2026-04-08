@@ -17,18 +17,13 @@ public interface ITppMortgageService
     Task<IEnumerable<TppMortgage>> GetProductDataSearchAsync(
     string? fromDate = null,
     string? toDate = null,
-    string? type = null,
-    string? description = null,
-    decimal? minimumLoanAmount = null,
-    decimal? maximumLoanAmount = null,
-    decimal? minTenure = null,
-    decimal? maxTenure = null,
-    decimal? indicativeRateFrom = null,
-    decimal? indicativeRateTo = null,
-    string? rateType = null,
-    string? documentationType = null,
-    string? feesName = null,
-    string? benefitsName = null,
+    decimal? minimumFinanceAmount = null,
+    decimal? maximumFinanceAmount = null,
+    decimal? chargeRate = null,
+    decimal? fixedRate = null,
+    string? chargeName = null,
+    decimal? chargeAmount = null,
+    decimal? limitsAmount = null,
     string? status = null);
 
     /// <summary>

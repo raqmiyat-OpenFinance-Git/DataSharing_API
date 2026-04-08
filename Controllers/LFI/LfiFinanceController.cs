@@ -34,7 +34,7 @@ public class LfiFinanceController : ControllerBase
     [FromQuery] string? toDate = null,
     [FromQuery] string? type = null,
     [FromQuery] decimal? minimumFinanceAmount = null,
-    [FromQuery] string? minimumFinanceCurrency = null,
+    [FromQuery] decimal? maximumFinanceAmount = null,
     [FromQuery] decimal? chargeRate = null,
     [FromQuery] decimal? fixedRate = null,
     [FromQuery] string? chargeName = null,
@@ -43,7 +43,7 @@ public class LfiFinanceController : ControllerBase
     [FromQuery] string? status = null)
     {
         var result = await _lfiPersonalLoanService.GetProductDataSearchAsync(
-            fromDate, toDate, type, minimumFinanceAmount, minimumFinanceCurrency, chargeRate,
+            fromDate, toDate, type, minimumFinanceAmount, maximumFinanceAmount, chargeRate,
             fixedRate, chargeName, chargeAmount, limitsAmount, status);
 
         return Ok(result);

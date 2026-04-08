@@ -33,20 +33,18 @@ public class TppFinanceController : ControllerBase
     [FromQuery] string? fromDate = null,
     [FromQuery] string? toDate = null,
     [FromQuery] string? type = null,
-    [FromQuery] string? description = null,
-    [FromQuery] decimal? minimumLoanAmount = null,
-    [FromQuery] string? minimumLoanCurrency = null,
-    [FromQuery] decimal? minTenure = null,
-    [FromQuery] decimal? indicativeRateFrom = null,
-    [FromQuery] string? rateType = null,
-    [FromQuery] string? documentationType = null,
-    [FromQuery] string? feesName = null,
-    [FromQuery] string? benefitsName = null,
+    [FromQuery] decimal? minimumFinanceAmount = null,
+    [FromQuery] decimal? maximumFinanceAmount = null,
+    [FromQuery] decimal? chargeRate = null,
+    [FromQuery] decimal? fixedRate = null,
+    [FromQuery] string? chargeName = null,
+    [FromQuery] decimal? chargeAmount = null,
+    [FromQuery] decimal? limitsAmount = null,
     [FromQuery] string? status = null)
     {
         var result = await _tppPersonalLoanService.GetProductDataSearchAsync(
-            fromDate, toDate, type, description, minimumLoanAmount, minimumLoanCurrency,
-            minTenure, indicativeRateFrom, rateType, documentationType, feesName, benefitsName, status);
+            fromDate, toDate, type, minimumFinanceAmount, maximumFinanceAmount, chargeRate,
+            fixedRate, chargeName, chargeAmount, limitsAmount, status);
 
         return Ok(result);
     }

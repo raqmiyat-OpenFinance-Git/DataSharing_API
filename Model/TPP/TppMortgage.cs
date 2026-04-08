@@ -74,67 +74,51 @@ public class TppMortgage
     public Guid MortgageId { get; set; }
     public long MortgageRequestId { get; set; }
     public string Type { get; set; }
-    public string MortgageDescription { get; set; }
-    public string CalculationMethod { get; set; }
-    public string Structure { get; set; }
+    public decimal? MinimumFinanceAmount { get; set; }
+    public string? MinimumFinanceCurrency { get; set; }
 
-    // Loan Amounts
-    public decimal? MinimumLoanAmount { get; set; }
-    public string MinimumLoanCurrency { get; set; }
-    public decimal? MaximumLoanAmount { get; set; }
-    public string MaximumLoanCurrency { get; set; }
+    public decimal? MaximumFinanceAmount { get; set; }
+    public string? MaximumFinanceCurrency { get; set; }
 
-    // Tenure
-    public decimal? MinTenure { get; set; }
-    public decimal? MaxTenure { get; set; }
+    public string? DownPaymentCustomerCategory { get; set; }
+    public decimal? DownPaymentMinimumPercent { get; set; }
+    public string? DownPaymentBasis { get; set; }
 
-    // Rate & APR
-    public string RateType { get; set; }
-    public string RateDescription { get; set; }
-    public string ReviewFrequency { get; set; }
-    public decimal? IndicativeRateFrom { get; set; }
-    public decimal? IndicativeRateTo { get; set; }
-    public decimal? ProfitRateFrom { get; set; }
-    public decimal? ProfitRateTo { get; set; }
-    public decimal? APRFrom { get; set; }
-    public decimal? APRTo { get; set; }
-    public string FixedRatePeriod { get; set; }
-    public string DebtBurdenRatio { get; set; }
-    public decimal? AnnualPercentageRateFrom { get; set; }
-    public decimal? AnnualPercentageRateTo { get; set; }
+    public string? DocumentationType { get; set; }
+    public string? DocumentationDescription { get; set; }
 
-    // Documentation
-    public string DocumentationType { get; set; }
-    public string DocumentationDescription { get; set; }
+    public string? FeaturesType { get; set; }
+    public string? FeaturesDescription { get; set; }
+    public string? ChargeType { get; set; }
+    public string? ChargeDescription { get; set; }
+    public string? ChargeName { get; set; }
+    public decimal? ChargeAmount { get; set; }
+    public string? ChargeCurrency { get; set; }
+    public decimal? ChargeRate { get; set; }
+    public string? ChargeApplicationFrequency { get; set; }
+    public string? ChargeInterestCalculationMethod { get; set; }
 
-    // Features
-    public string FeaturesType { get; set; }
-    public string FeaturesDescription { get; set; }
+    public decimal? MaximumChargeAmount { get; set; }
+    public string? MaximumChargeCurrency { get; set; }
 
-    // Fees
-    public string FeesType { get; set; }
-    public string FeesPeriod { get; set; }
-    public string FeesName { get; set; }
-    public string FeesDescription { get; set; }
-    public string FeesUnit { get; set; }
-    public decimal? FeesAmount { get; set; }
-    public string FeesCurrency { get; set; }
-    public decimal? FeesPercentage { get; set; }
-    public decimal? FeesUnitValue { get; set; }
-    public decimal? FeesMaximumUnitValue { get; set; }
+    public string? ChargeBasis { get; set; }
 
-    // Limits
-    public string LimitsType { get; set; }
-    public string LimitsDescription { get; set; }
+    public string? ConditionsField { get; set; }
+    public string? ConditionsOperator { get; set; }
+    public string? ConditionsValue { get; set; }
+    public string? ConditionsDescription { get; set; }
+
+    public string? Justification { get; set; }
+    public string? Frequency { get; set; }
+
+    public bool? DonatedToCharity { get; set; }
+
+    public string? Notes { get; set; }
+    public string? SupplementaryInformation { get; set; }
+
+    public string? LimitsType { get; set; }
+    public string? LimitsDescription { get; set; }
     public decimal? LimitsValue { get; set; }
-
-    // Benefits
-    public string BenefitsType { get; set; }
-    public string BenefitsName { get; set; }
-    public string BenefitsDescription { get; set; }
-    public decimal? BenefitsValue { get; set; }
-
-    // Indicative APR
-    public decimal? IndicativeAPRFrom { get; set; }
-    public decimal? IndicativeAPRTo { get; set; }
+    public decimal? LimitsAmount { get; set; }
+    public string? LimitsCurrency { get; set; }
 }

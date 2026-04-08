@@ -41,7 +41,7 @@ public class LfiFinanceService : ILfiFinanceService
     string? toDate = null,
     string? type = null,
     decimal? minimumFinanceAmount = null,
-    string? minimumFinanceCurrency = null,
+    decimal? maximumFinanceAmount = null,
     decimal? chargeRate = null,
     decimal? fixedRate = null,
     string? chargeName = null,
@@ -56,7 +56,7 @@ public class LfiFinanceService : ILfiFinanceService
             parameters.Add("ToDate", toDate, DbType.String);
             parameters.Add("Type", type, DbType.String);
             parameters.Add("MinimumFinanceAmount", minimumFinanceAmount, DbType.Decimal);
-            parameters.Add("MinimumFinanceCurrency", minimumFinanceCurrency, DbType.String);
+            parameters.Add("MaximumFinanceAmount", maximumFinanceAmount, DbType.Decimal);
             parameters.Add("ChargeRate", chargeRate, DbType.Decimal);
             parameters.Add("ChargeName", chargeName, DbType.String);
             parameters.Add("ChargeAmount", chargeAmount, DbType.Decimal);
