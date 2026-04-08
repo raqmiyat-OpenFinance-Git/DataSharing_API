@@ -1,8 +1,8 @@
-﻿namespace DataSharing_API.Model.LFI;
-public class LfiMortgage
+﻿namespace DataSharing_API.Model.TPP;
+public class TppFinance
 {
 
-    //LfiProductDataRequest
+    //TppProductDataRequest
     public long RequestId { get; set; }
     public Guid CorrelationId { get; set; }
     public int? PageNumber { get; set; }
@@ -30,12 +30,12 @@ public class LfiMortgage
     public string RequestJson { get; set; }
 
 
-    //LfiProductDataResponse
+    //TppProductDataResponse
 
     public long Id { get; set; }
     public long ResponseRequestId { get; set; }
-    public string LFIId { get; set; }
-    public string LFIBrandId { get; set; }
+    public string TPPId { get; set; }
+    public string TPPBrandId { get; set; }
     public DateTime? ResponseLastUpdatedDateTime { get; set; }
     public bool? ResponseIsShariaCompliant { get; set; }
     public string ShariaInformation { get; set; }
@@ -79,20 +79,16 @@ public class LfiMortgage
     public DateTime? ResponseModifiedOn { get; set; }
     public string ResponsePayload { get; set; }
 
-    //Mortgage
+    //Personal Loan
 
-    public Guid MortgageId { get; set; }
-    public long MortgageRequestId { get; set; }
-    public string Type { get; set; }
+    public Guid PersonalLoanId { get; set; }
+    public long FinanceRequestId { get; set; }
+    public string? Type { get; set; }
     public decimal? MinimumFinanceAmount { get; set; }
     public string? MinimumFinanceCurrency { get; set; }
 
     public decimal? MaximumFinanceAmount { get; set; }
     public string? MaximumFinanceCurrency { get; set; }
-
-    public string? DownPaymentCustomerCategory { get; set; }
-    public decimal? DownPaymentMinimumPercent { get; set; }
-    public string? DownPaymentBasis { get; set; }
 
     public string? DocumentationType { get; set; }
     public string? DocumentationDescription { get; set; }
@@ -131,4 +127,7 @@ public class LfiMortgage
     public decimal? LimitsValue { get; set; }
     public decimal? LimitsAmount { get; set; }
     public string? LimitsCurrency { get; set; }
+
+    public string? AdditionalInfoType { get; set; }
+    public string? AdditionalInfoDescription { get; set; }
 }
