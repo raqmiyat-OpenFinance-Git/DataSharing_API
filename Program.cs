@@ -156,6 +156,7 @@ internal class Program
         services.AddTransient<ILfiStandingOrderDataService, LfiStandingOrderDataService>();
         services.AddTransient<ICreateBalanceDataService, CreateBalanceDataService>();
         services.AddTransient<IDashboardService, DashboardService>();
+        services.AddTransient<ITppDashboardService, TppDashboardService>();
         services.AddTransient<ITppCustomerDataService, TppCustomerDataService>();
         services.AddTransient<ICreateAccountDataService, CreateAccountDataService>();
         services.AddTransient<ILfiCopQueryDataService, LfiCopQueryDataService>();
@@ -178,6 +179,10 @@ internal class Program
         services.AddTransient<ITppBeneficiariesDataService, TppBeneficiariesDataService>();
         services.AddTransient<ITppDirectDebitDataService, TppDirectDebitDataService>();
         services.AddTransient<ITppSchedPaymentDataService, TppSchedPaymentDataService>();
+        services.AddTransient<ITppStandingOrderDataService, TppStandingOrderDataService>();
+        services.AddTransient<ITppTransactionalDataService, TppTransactionalDataService>();
+        services.AddTransient<ITppPartiesDataService, TppPartiesDataService>();
+        services.AddTransient<ITppStatementDataService, TppStatementDataService>();
         services.AddTransient<HttpClientHandler>();
         services.AddTransient<Logger>(sp =>
         {

@@ -29,9 +29,9 @@ public class BeneficiariesDataController : ControllerBase
 
     [HttpGet]
     [Route("GetBeneficiariesDataSearchById")]
-    public Task<IEnumerable<BeneficiariesResponse>> GetBeneficiariesDataSearchById(string Fromdate, string Todate, string? ConsentId, string? AccountId, string? Type)
+    public Task<IEnumerable<BeneficiariesResponse>> GetBeneficiariesDataSearchById(string Fromdate, string Todate, string? ConsentId, string? AccountId, string? Type, string? Status, string? OrganizationId, string? ClientId)
     {
-        return _beneficiariesdataservice.GetBeneficiariesDataSearchByIdAsync(Fromdate, Todate, ConsentId!, AccountId!, Type!);
+        return _beneficiariesdataservice.GetBeneficiariesDataSearchByIdAsync(Fromdate, Todate, ConsentId!, AccountId!, Type!, Status!, OrganizationId!, ClientId!);
 
     }
 }

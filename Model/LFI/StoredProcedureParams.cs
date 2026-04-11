@@ -171,11 +171,33 @@
         public string? GetTppDirectDebitByIdAsync { get; set; }
 
 
-        //TppDirectDebit Enquiry Screen
+        //TppSchedPayment Enquiry Screen
         public string? GetAllTppSchedPaymentAsync { get; set; }
         public string? GetTppSchedPaymentByDateAsync { get; set; }
         public string? GetTppSchedPaymentByIdAsync { get; set; }
 
+        //TppStandingOrder Enquiry Screen
+        public string? GetAllTppStandingOrderAsync { get; set; }
+        public string? GetTppStandingOrderByDateAsync { get; set; }
+        public string? GetTppStandingOrderByIdAsync { get; set; }
+
+
+        //TppTransactional Enquiry Screen
+        public string? GetAllTppTransactionalDataAsync { get; set; }
+        public string? GetTppTransactionalDataByDateAsync { get; set; }
+        public string? GetTppTransactionalDataByIdAsync { get; set; }
+
+
+        //TppParties Enquiry Screen
+        public string? GetAllTppPartiesDataAsync { get; set; }
+        public string? GetTppPartiesDataByDateAsync { get; set; }
+        public string? GetTppPartiesDataByIdAsync { get; set; }
+
+
+        //TppStatement Enquiry Screen
+        public string? GetAllTppStatementDataAsync { get; set; }
+        public string? GetTppStatementDataByDateAsync { get; set; }
+        public string? GetTppStatementDataByIdAsync { get; set; }
 
 
         //TppCustomers Enquiry Screen

@@ -28,9 +28,9 @@ public class DirectDebitDataController : ControllerBase
     }
     [HttpGet]
     [Route("GetDirectdebitDataSearchById")]
-    public Task<IEnumerable<DirectDebitResponse>> GetDirectdebitDataSearchById(string Fromdate, string Todate, string? ConsentId, string? AccountId, string? Type)
+    public Task<IEnumerable<DirectDebitResponse>> GetDirectdebitDataSearchById(string Fromdate, string Todate, string? ConsentId, string? AccountId, string? Type, string? Status, string? OrganizationId, string? ClientId)
     {
-        return _directdebitdataservice.GetDirectdebitDataSearchByIdAsync(Fromdate, Todate, ConsentId!, AccountId!, Type!);
+        return _directdebitdataservice.GetDirectdebitDataSearchByIdAsync(Fromdate, Todate, ConsentId!, AccountId!, Type!,  Status!,  OrganizationId!,  ClientId!);
 
     }
 }

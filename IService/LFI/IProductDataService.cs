@@ -6,5 +6,5 @@ public interface IProductDataService
 
     Task<ProductResponse> GetProductDataByRefIdAsync(string CorrelationId);
 
-    Task<IEnumerable<ProductResponse>> GetProductDataSearchByIdAsync(string Fromdate, string todate, string ConsentId, string AccountId, string Type);
+    Task<IEnumerable<ProductResponse>> GetProductDataSearchByIdAsync(string Fromdate, string todate, string ConsentId, string AccountId, string Type, string Status, string OrganizationId, string ClientId);
 }

@@ -11,6 +11,7 @@
     {
         public long Id { get; set; }
         public Guid CorrelationId { get; set; }
+        public string? AddedViaOF { get; set; }
         public string? AccountId { get; set; }
         public string? BeneficiaryId { get; set; }
         public string? BeneficiaryType { get; set; }
@@ -40,6 +41,9 @@
         public DateTime? ModifiedOn { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
+        public string? ConsentId { get; set; }
+        public string? TppName { get; set; }
+        public string? TppId { get; set; }
     }
 }
 

@@ -1,6 +1,6 @@
 ﻿namespace DataSharing_API.Model.TPP
 {
-    public class TPPAccounDataModel
+    public class TPPAccountDataModel
     {
         public List<TPPAccountDataResponse>? tppaccountDataResponseList { get; set; }
 

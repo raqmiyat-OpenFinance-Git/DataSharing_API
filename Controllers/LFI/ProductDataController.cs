@@ -17,7 +17,6 @@ public class ProductDataController : ControllerBase
     public Task<IEnumerable<ProductResponse>> GetProductDataList()
     {
         return _productdataservice.GetProductDataListAsync();
-
     }
     [HttpGet]
     [Route("GetProductDataByRefId")]
@@ -29,9 +28,9 @@ public class ProductDataController : ControllerBase
 
     [HttpGet]
     [Route("GetProductDataSearchById")]
-    public Task<IEnumerable<ProductResponse>> GetProductDataSearchById(string Fromdate, string Todate, string? ConsentId, string? AccountId, string? Type)
+    public Task<IEnumerable<ProductResponse>> GetProductDataSearchById(string Fromdate, string Todate, string? ConsentId, string? AccountId, string? Type, string? Status, string? OrganizationId, string? ClientId)
     {
-        return _productdataservice.GetProductDataSearchByIdAsync(Fromdate, Todate, ConsentId!, AccountId!, Type!);
+        return _productdataservice.GetProductDataSearchByIdAsync(Fromdate, Todate, ConsentId!, AccountId!, Type!,  Status!,  OrganizationId!,  ClientId!);
 
     }
 }

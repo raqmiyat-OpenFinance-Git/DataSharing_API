@@ -46,7 +46,8 @@ public class ProductDataService : IProductDataService
             return null;
         }
     }
-    public async Task<IEnumerable<ProductResponse>> GetProductDataSearchByIdAsync(string Fromdate, string Todate, string ConsentId, string AccountId, string Type)
+    public async Task<IEnumerable<ProductResponse>> GetProductDataSearchByIdAsync(string Fromdate, string Todate, string ConsentId, string AccountId,
+        string Type, string Status, string OrganizationId, string ClientId)
     {
         try
         {
@@ -56,6 +57,9 @@ public class ProductDataService : IProductDataService
             parameters.Add("Todate", Todate, DbType.String);
             parameters.Add("ConsentId", ConsentId, DbType.String);
             parameters.Add("AccountId", AccountId, DbType.String);
+            parameters.Add("TppName", OrganizationId, DbType.String);
+            parameters.Add("TppID", ClientId, DbType.String);
+            parameters.Add("Status", Status, DbType.String);
 
             var result = await _idbConnection.QueryAsync<ProductResponse>(
                 _storedProcedureParams.Value.dataSharingSPParams!.RetrieveProductDataSearchByRefId!,

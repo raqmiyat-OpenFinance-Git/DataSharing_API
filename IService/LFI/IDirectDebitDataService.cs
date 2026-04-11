@@ -6,5 +6,5 @@ public interface IDirectDebitDataService
 
     Task<DirectDebitResponse> GetDirectdebitDataByRefIdAsync(string CorrelationId);
 
-    Task<IEnumerable<DirectDebitResponse>> GetDirectdebitDataSearchByIdAsync(string Fromdate, string todate, string ConsentId, string AccountId, string Type);
+    Task<IEnumerable<DirectDebitResponse>> GetDirectdebitDataSearchByIdAsync(string Fromdate, string todate, string ConsentId, string AccountId, string Type, string Status, string OrganizationId, string ClientId);
 }

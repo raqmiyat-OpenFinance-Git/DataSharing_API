@@ -47,7 +47,7 @@ public class BeneficiariesDataService : IBeneficiariesDataService
             return null;
         }
     }
-    public async Task<IEnumerable<BeneficiariesResponse>> GetBeneficiariesDataSearchByIdAsync(string Fromdate, string Todate, string ConsentId, string AccountId, string Type)
+    public async Task<IEnumerable<BeneficiariesResponse>> GetBeneficiariesDataSearchByIdAsync(string Fromdate, string Todate, string ConsentId, string AccountId, string Type, string Status, string OrganizationId, string ClientId)
     {
         try
         {
@@ -57,7 +57,9 @@ public class BeneficiariesDataService : IBeneficiariesDataService
             parameters.Add("Todate", Todate, DbType.String);
             parameters.Add("ConsentId", ConsentId, DbType.String);
             parameters.Add("AccountId", AccountId, DbType.String);
-
+            parameters.Add("@Status", Status, DbType.String);
+            parameters.Add("@TppName", OrganizationId, DbType.String);
+            parameters.Add("@TppID", ClientId, DbType.String);
             var result = await _idbConnection.QueryAsync<BeneficiariesResponse>(
                 _storedProcedureParams.Value.dataSharingSPParams!.RetrieveBeneficiariesDataSearchByRefId!,
                 parameters,
