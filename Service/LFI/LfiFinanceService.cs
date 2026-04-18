@@ -6,11 +6,13 @@ public class LfiFinanceService : ILfiFinanceService
 {
     private IDbConnection _idbConnection;
     private readonly IOptions<StoredProcedureParams> _storedProcedureParams;
+    private readonly DataSharingLogger _logger;
 
-    public LfiFinanceService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams)
+    public LfiFinanceService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams,DataSharingLogger logger)
     {
         _idbConnection = idbConnection;
         _storedProcedureParams = storedProcedureParams;
+        _logger = logger;
     }
 
     public async Task<IEnumerable<LfiFinance>> GetProductDataListAsync(int productQuoteId)
@@ -30,6 +32,7 @@ public class LfiFinanceService : ILfiFinanceService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetProductDataListAsync");
             // Consider logging here (e.g., NLog or ILogger)
             return Enumerable.Empty<LfiFinance>();
         }
@@ -73,7 +76,7 @@ public class LfiFinanceService : ILfiFinanceService
         }
         catch (Exception ex)
         {
-            // Consider logging here (e.g., NLog or ILogger)
+            _logger.Error(ex, "Error Occurred in GetProductDataSearchAsync");
             return Enumerable.Empty<LfiFinance>();
         }
     }
@@ -95,7 +98,7 @@ public class LfiFinanceService : ILfiFinanceService
         }
         catch (Exception ex)
         {
-            // Consider logging here (e.g., NLog or ILogger)
+            _logger.Error(ex, "Error Occurred in GetProductDataByRefIdAsync");
             return null;
         }
     }

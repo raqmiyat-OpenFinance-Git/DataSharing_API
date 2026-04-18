@@ -7,11 +7,13 @@ public class LfiCreateLeadService : ILfiCreateLeadService
 {
     private IDbConnection _idbConnection;
     private readonly IOptions<StoredProcedureParams> _storedProcedureParams;
+    private readonly DataSharingLogger _logger;
 
-    public LfiCreateLeadService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams)
+    public LfiCreateLeadService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams,DataSharingLogger logger)
     {
         _idbConnection = idbConnection;
         _storedProcedureParams = storedProcedureParams;
+        _logger = logger;
     }
     public async Task<IEnumerable<LeadModel>> GetLeadListAsync()
     {
@@ -27,6 +29,7 @@ public class LfiCreateLeadService : ILfiCreateLeadService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetLeadListAsync");
             return Enumerable.Empty<LeadModel>();
         }
     }
@@ -47,6 +50,7 @@ public class LfiCreateLeadService : ILfiCreateLeadService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetLeadByRefIdAsync");
             return null;
         }
     }
@@ -74,6 +78,7 @@ public class LfiCreateLeadService : ILfiCreateLeadService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetLeadSearchByIdAsync");
             return null;
         }
     }

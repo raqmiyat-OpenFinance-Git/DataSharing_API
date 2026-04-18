@@ -6,11 +6,13 @@ public class LfiStandingOrderDataService : ILfiStandingOrderDataService
 {
     private IDbConnection _idbConnection;
     private readonly IOptions<StoredProcedureParams> _storedProcedureParams;
+    private readonly DataSharingLogger _logger;
 
-    public LfiStandingOrderDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams)
+    public LfiStandingOrderDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams,DataSharingLogger logger)
     {
         _idbConnection = idbConnection;
         _storedProcedureParams = storedProcedureParams;
+        _logger = logger;
     }
     public async Task<IEnumerable<StandOrderResponse>> GetStandOrderDataListAsync()
     {
@@ -24,6 +26,7 @@ public class LfiStandingOrderDataService : ILfiStandingOrderDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetStandOrderDataListAsync");
             return Enumerable.Empty<StandOrderResponse>();
         }
     }
@@ -43,6 +46,7 @@ public class LfiStandingOrderDataService : ILfiStandingOrderDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetStandOrderDataByRefIdAsync");
             return null;
         }
     }
@@ -69,6 +73,7 @@ public class LfiStandingOrderDataService : ILfiStandingOrderDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetStandOrderDataSearchByIdAsync");
             return null;
         }
     }

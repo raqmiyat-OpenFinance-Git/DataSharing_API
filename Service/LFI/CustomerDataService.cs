@@ -6,11 +6,12 @@ public class CustomerDataService : ICustomerDataService
 {
     private IDbConnection _idbConnection;
     private readonly IOptions<StoredProcedureParams> _storedProcedureParams;
-
-    public CustomerDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams)
+    private readonly DataSharingLogger _logger;
+    public CustomerDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams, DataSharingLogger logger)
     {
         _idbConnection = idbConnection;
         _storedProcedureParams = storedProcedureParams;
+        _logger = logger;
     }
     public async Task<IEnumerable<CustomerDataResponse>> GetCustomerDataListAsync()
     {
@@ -24,6 +25,8 @@ public class CustomerDataService : ICustomerDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetCustomerDataListAsync");
+
             return Enumerable.Empty<CustomerDataResponse>();
         }
     }
@@ -44,6 +47,7 @@ public class CustomerDataService : ICustomerDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetCustomerDataByRefIdAsync");
             return null;
         }
     }
@@ -73,6 +77,7 @@ public class CustomerDataService : ICustomerDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetCustomerDataSearchByIdAsync");
             return null;
         }
     }

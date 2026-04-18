@@ -6,11 +6,13 @@ public class LfiCreditCardService : ILfiCreditCardService
 {
     private IDbConnection _idbConnection;
     private readonly IOptions<StoredProcedureParams> _storedProcedureParams;
+    private readonly DataSharingLogger _logger;
 
-    public LfiCreditCardService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams)
+    public LfiCreditCardService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams,DataSharingLogger logger)
     {
         _idbConnection = idbConnection;
         _storedProcedureParams = storedProcedureParams;
+        _logger = logger;
     }
 
     public async Task<IEnumerable<LfiCreditCard>> GetProductDataListAsync(int productQuoteId)
@@ -30,7 +32,7 @@ public class LfiCreditCardService : ILfiCreditCardService
         }
         catch (Exception ex)
         {
-            // Consider logging here (e.g., NLog or ILogger)
+            _logger.Error(ex, "Error Occurred in GetProductDataListAsync");
             return Enumerable.Empty<LfiCreditCard>();
         }
     }
@@ -72,7 +74,8 @@ public class LfiCreditCardService : ILfiCreditCardService
         }
         catch (Exception ex)
         {
-            // Consider logging here (e.g., NLog or ILogger)
+            _logger.Error(ex, "Error Occurred in GetProductDataSearchAsync");
+         
             return Enumerable.Empty<LfiCreditCard>();
         }
     }
@@ -94,7 +97,8 @@ public class LfiCreditCardService : ILfiCreditCardService
         }
         catch (Exception ex)
         {
-            // Consider logging here (e.g., NLog or ILogger)
+            _logger.Error(ex, "Error Occurred in GetProductDataByRefIdAsync");
+           
             return null;
         }
     }

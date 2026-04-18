@@ -6,11 +6,13 @@ public class BeneficiariesDataService : IBeneficiariesDataService
 {
     private IDbConnection _idbConnection;
     private readonly IOptions<StoredProcedureParams> _storedProcedureParams;
+    private readonly DataSharingLogger _logger;
 
-    public BeneficiariesDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams)
+    public BeneficiariesDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams,DataSharingLogger logger)
     {
         _idbConnection = idbConnection;
         _storedProcedureParams = storedProcedureParams;
+        _logger = logger;
     }
     public async Task<IEnumerable<BeneficiariesResponse>> GetBeneficiariesDataListAsync()
     {
@@ -24,6 +26,7 @@ public class BeneficiariesDataService : IBeneficiariesDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetBeneficiariesDataListAsync");
             return Enumerable.Empty<BeneficiariesResponse>();
         }
     }
@@ -44,6 +47,7 @@ public class BeneficiariesDataService : IBeneficiariesDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetBeneficiariesDataByRefIdAsync");
             return null;
         }
     }
@@ -69,6 +73,7 @@ public class BeneficiariesDataService : IBeneficiariesDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetBeneficiariesDataSearchByIdAsync");
             return null;
         }
     }

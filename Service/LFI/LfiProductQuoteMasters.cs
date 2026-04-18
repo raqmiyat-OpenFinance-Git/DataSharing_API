@@ -6,11 +6,13 @@ public class LfiProductQuoteMasters : ILfiProductQuoteMasters
 {
     private IDbConnection _idbConnection;
     private readonly IOptions<StoredProcedureParams> _storedProcedureParams;
+    private readonly DataSharingLogger _logger;
 
-    public LfiProductQuoteMasters(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams)
+    public LfiProductQuoteMasters(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams,DataSharingLogger logger)
     {
         _idbConnection = idbConnection;
         _storedProcedureParams = storedProcedureParams;
+        _logger = logger;
     }
 
     public async Task<IEnumerable<ProductQuoteMaster>> GetProductQuoteMasters()
@@ -27,7 +29,7 @@ public class LfiProductQuoteMasters : ILfiProductQuoteMasters
         }
         catch (Exception ex)
         {
-            // Consider logging here (e.g., NLog or ILogger)
+            _logger.Error(ex, "Error Occurred in GetProductQuoteMasters");
             return Enumerable.Empty<ProductQuoteMaster>();
         }
     }

@@ -6,11 +6,13 @@ public class LfiMortgageService : ILfiMortgageService
 {
     private IDbConnection _idbConnection;
     private readonly IOptions<StoredProcedureParams> _storedProcedureParams;
+    private readonly DataSharingLogger _logger;
 
-    public LfiMortgageService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams)
+    public LfiMortgageService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams,DataSharingLogger logger)
     {
         _idbConnection = idbConnection;
         _storedProcedureParams = storedProcedureParams;
+        _logger = logger;
     }
 
     public async Task<IEnumerable<LfiMortgage>> GetProductDataListAsync(int productQuoteId)
@@ -30,7 +32,7 @@ public class LfiMortgageService : ILfiMortgageService
         }
         catch (Exception ex)
         {
-            // Consider logging here (e.g., NLog or ILogger)
+            _logger.Error(ex, "Error Occurred in GetProductDataListAsync");
             return Enumerable.Empty<LfiMortgage>();
         }
     }
@@ -72,7 +74,7 @@ public class LfiMortgageService : ILfiMortgageService
         }
         catch (Exception ex)
         {
-            // Consider logging here (e.g., NLog or ILogger)
+            _logger.Error(ex, "Error Occurred in GetProductDataSearchAsync");
             return Enumerable.Empty<LfiMortgage>();
         }
     }
@@ -94,7 +96,7 @@ public class LfiMortgageService : ILfiMortgageService
         }
         catch (Exception ex)
         {
-            // Consider logging here (e.g., NLog or ILogger)
+            _logger.Error(ex, "Error Occurred in GetProductDataByRefIdAsync");
             return null;
         }
     }

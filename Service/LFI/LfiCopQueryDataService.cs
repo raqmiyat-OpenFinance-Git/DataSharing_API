@@ -6,11 +6,13 @@ public class LfiCopQueryDataService : ILfiCopQueryDataService
 {
     private IDbConnection _idbConnection;
     private readonly IOptions<StoredProcedureParams> _storedProcedureParams;
+    private readonly DataSharingLogger _logger;
 
-    public LfiCopQueryDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams)
+    public LfiCopQueryDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams,DataSharingLogger logger)
     {
         _idbConnection = idbConnection;
         _storedProcedureParams = storedProcedureParams;
+        _logger = logger;
     }
 
     public async Task<IEnumerable<LfiCoPQueryData>> GetCopQueryDataListAsync()
@@ -25,6 +27,7 @@ public class LfiCopQueryDataService : ILfiCopQueryDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetCopQueryDataListAsync");
             return Enumerable.Empty<LfiCoPQueryData>();
         }
     }
@@ -45,6 +48,7 @@ public class LfiCopQueryDataService : ILfiCopQueryDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetCopQueryDataByRefIdAsync");
             return null;
         }
     }
@@ -68,6 +72,7 @@ public class LfiCopQueryDataService : ILfiCopQueryDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetCopQueryDataSearchByIdAsync");
             return null;
         }
     }

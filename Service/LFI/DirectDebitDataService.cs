@@ -6,11 +6,13 @@ public class DirectDebitDataService : IDirectDebitDataService
 {
     private IDbConnection _idbConnection;
     private readonly IOptions<StoredProcedureParams> _storedProcedureParams;
+    private readonly DataSharingLogger _logger;
 
-    public DirectDebitDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams)
+    public DirectDebitDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams, DataSharingLogger logger)
     {
         _idbConnection = idbConnection;
         _storedProcedureParams = storedProcedureParams;
+        _logger = logger;
     }
     public async Task<IEnumerable<DirectDebitResponse>> GetDirectdebitDataListAsync()
     {
@@ -24,6 +26,7 @@ public class DirectDebitDataService : IDirectDebitDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetDirectdebitDataListAsync");
             return Enumerable.Empty<DirectDebitResponse>();
         }
     }
@@ -43,6 +46,7 @@ public class DirectDebitDataService : IDirectDebitDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetDirectdebitDataByRefIdAsync");
             return null;
         }
     }
@@ -68,6 +72,7 @@ public class DirectDebitDataService : IDirectDebitDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetDirectdebitDataSearchByIdAsync");
             return null;
         }
     }

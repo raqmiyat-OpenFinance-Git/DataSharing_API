@@ -6,30 +6,15 @@ public class BalanceDataService : IBalanceDataService
 {
     private IDbConnection _idbConnection;
     private readonly IOptions<StoredProcedureParams> _storedProcedureParams;
+    private readonly DataSharingLogger _logger;
 
-    public BalanceDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams)
+    public BalanceDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams,DataSharingLogger logger)
     {
         _idbConnection = idbConnection;
         _storedProcedureParams = storedProcedureParams;
+        _logger = logger;
     }
-    //public async Task<IEnumerable<BalanceData>> GetBalanceDataListAsync(string RequestType)
-    //{
-    //    try
-    //    {
-    //        var parameters = new DynamicParameters();
-    //        parameters.Add("RequestType", RequestType, DbType.String);
-    //        var result = await _idbConnection.QueryAsync<BalanceData>(
-    //            _storedProcedureParams.Value.dataSharingSPParams!.RetrieveBalanceData!, parameters,
-    //            commandType: CommandType.StoredProcedure
-    //        );
-    //        return result.ToList();
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        return Enumerable.Empty<BalanceData>();
-    //    }
-    //}
-
+   
     public async Task<IEnumerable<BalanceData>> GetBalanceDataListAsync()
     {
         try
@@ -44,6 +29,7 @@ public class BalanceDataService : IBalanceDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetBalanceDataListAsync");
             return Enumerable.Empty<BalanceData>();
         }
     }
@@ -64,6 +50,7 @@ public class BalanceDataService : IBalanceDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetBalanceDataByRefIdAsync");
             return null;
         }
     }
@@ -89,6 +76,7 @@ public class BalanceDataService : IBalanceDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetBalanceDataSearchByIdAsync");
             return null;
         }
     }

@@ -6,11 +6,12 @@ public class LfiTransactionalDataService : ILfiTransactionalDataService
 {
     private IDbConnection _idbConnection;
     private readonly IOptions<StoredProcedureParams> _storedProcedureParams;
-
-    public LfiTransactionalDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams)
+    private readonly DataSharingLogger _logger;
+    public LfiTransactionalDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams,DataSharingLogger logger)
     {
         _idbConnection = idbConnection;
         _storedProcedureParams = storedProcedureParams;
+        _logger = logger;
     }
     
 
@@ -30,6 +31,7 @@ public class LfiTransactionalDataService : ILfiTransactionalDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetTransactionalDataListAsync");
             return Enumerable.Empty<LfiTransactionalData>();
         }
     }
@@ -50,6 +52,7 @@ public class LfiTransactionalDataService : ILfiTransactionalDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetTransactionalDataByRefIdAsync");
             return null;
         }
     }
@@ -78,6 +81,7 @@ public class LfiTransactionalDataService : ILfiTransactionalDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetTransactionalDataSearchByIdAsync");
             return null;
         }
     }

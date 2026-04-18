@@ -6,11 +6,13 @@ public class LfiSavingsAccountService : ILfiSavingsAccountService
 {
     private IDbConnection _idbConnection;
     private readonly IOptions<StoredProcedureParams> _storedProcedureParams;
+    private readonly DataSharingLogger _logger;
 
-    public LfiSavingsAccountService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams)
+    public LfiSavingsAccountService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams,DataSharingLogger logger)
     {
         _idbConnection = idbConnection;
         _storedProcedureParams = storedProcedureParams;
+        _logger = logger;
     }
 
     public async Task<IEnumerable<LfiSavingsAccount>> GetProductDataListAsync(int productQuoteId)
@@ -30,7 +32,7 @@ public class LfiSavingsAccountService : ILfiSavingsAccountService
         }
         catch (Exception ex)
         {
-            // Consider logging here (e.g., NLog or ILogger)
+            _logger.Error(ex, "Error Occurred in GetProductDataListAsync");
             return Enumerable.Empty<LfiSavingsAccount>();
         }
     }
@@ -73,7 +75,7 @@ public class LfiSavingsAccountService : ILfiSavingsAccountService
         }
         catch (Exception ex)
         {
-            // Consider logging here (e.g., NLog or ILogger)
+            _logger.Error(ex, "Error Occurred in GetProductDataSearchAsync");
             return Enumerable.Empty<LfiSavingsAccount>();
         }
     }
@@ -95,7 +97,7 @@ public class LfiSavingsAccountService : ILfiSavingsAccountService
         }
         catch (Exception ex)
         {
-            // Consider logging here (e.g., NLog or ILogger)
+            _logger.Error(ex, "Error Occurred in GetProductDataByRefIdAsync");
             return null;
         }
     }

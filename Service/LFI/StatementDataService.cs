@@ -6,11 +6,12 @@ public class StatementDataService : IStatementDataService
 {
     private IDbConnection _idbConnection;
     private readonly IOptions<StoredProcedureParams> _storedProcedureParams;
-
-    public StatementDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams)
+    private readonly DataSharingLogger _logger;
+    public StatementDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams,DataSharingLogger logger)
     {
         _idbConnection = idbConnection;
         _storedProcedureParams = storedProcedureParams;
+        _logger = logger;
     }
     public async Task<IEnumerable<StatementResponse>> GetStatementDataListAsync()
     {
@@ -24,6 +25,7 @@ public class StatementDataService : IStatementDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetStatementDataListAsync");
             return Enumerable.Empty<StatementResponse>();
         }
     }
@@ -43,6 +45,7 @@ public class StatementDataService : IStatementDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetStatementDataByRefIdAsync");
             return null;
         }
     }
@@ -68,6 +71,7 @@ public class StatementDataService : IStatementDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetStatementDataSearchByIdAsync");
             return null;
         }
     }

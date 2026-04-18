@@ -6,11 +6,13 @@ public class ProductDataService : IProductDataService
 {
     private IDbConnection _idbConnection;
     private readonly IOptions<StoredProcedureParams> _storedProcedureParams;
+    private readonly DataSharingLogger _logger;
 
-    public ProductDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams)
+    public ProductDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams,DataSharingLogger logger)
     {
         _idbConnection = idbConnection;
         _storedProcedureParams = storedProcedureParams;
+        _logger = logger;
     }
     public async Task<IEnumerable<ProductResponse>> GetProductDataListAsync()
     {
@@ -24,6 +26,7 @@ public class ProductDataService : IProductDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetProductDataListAsync");
             return Enumerable.Empty<ProductResponse>();
         }
     }
@@ -43,6 +46,7 @@ public class ProductDataService : IProductDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetProductDataByRefIdAsync");
             return null;
         }
     }
@@ -70,6 +74,7 @@ public class ProductDataService : IProductDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetProductDataSearchByIdAsync");
             return null;
         }
     }

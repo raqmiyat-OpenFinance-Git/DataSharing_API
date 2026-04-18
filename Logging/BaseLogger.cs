@@ -1,31 +1,85 @@
-﻿namespace DataSharing_API.Logging;
+﻿global using LogLevel = NLog.LogLevel;
 
 public class BaseLogger
 {
-
+    private readonly IConfiguration _config;
+    private readonly bool siemEnabled;
     public required Logger Log { get; set; }
 
-
+    public BaseLogger(IConfiguration configuration)
+    {
+        _config = configuration;
+        siemEnabled = _config.GetValue<bool>("SIEM-Ready-Log");
+    }
 
     public void Debug(string message)
     {
-        Log.Debug(FormStructuredLog(message));
+        if (siemEnabled)
+        {
+            var (className, methodName, lineNumber) = ExtractCallerInfo();
+            var logEvent = new LogEventInfo(LogLevel.Debug, Log.Name, message);
+
+            logEvent.Properties["className"] = className;
+            logEvent.Properties["methodName"] = methodName;
+            logEvent.Properties["lineNumber"] = lineNumber;
+            logEvent.Properties["stackTrace"] = message;
+
+            Log.Log(logEvent);
+        }
+        else
+        {
+            Log.Debug(FormStructuredLog(message));
+
+        }
     }
 
     public void Error(string message)
     {
-        Log.Error(FormStructuredLog(message));
+        if (siemEnabled)
+        {
+            var (className, methodName, lineNumber) = ExtractCallerInfo();
+            var logEvent = new LogEventInfo(LogLevel.Error, Log.Name, message);
+
+            logEvent.Properties["className"] = className;
+            logEvent.Properties["methodName"] = methodName;
+            logEvent.Properties["lineNumber"] = lineNumber;
+            logEvent.Properties["stackTrace"] = message;
+
+            Log.Log(logEvent);
+        }
+        else
+        {
+            Log.Error(FormStructuredLog(message));
+        }
     }
 
     public void Error(Exception ex, string storeProcedure)
     {
-        Log.Error(FormStructuredLog($"Exception: {ex.Message}", storeProcedure));
+        bool siemEnabled = _config.GetValue<bool>("SIEM-Ready-Log");
 
-        if (ex.InnerException != null)
+        if (siemEnabled)
         {
-            Log.Error(FormStructuredLog($"InnerException: {ex.InnerException.Message}", storeProcedure));
+            var (className, methodName, lineNumber) = ExtractCallerInfo();
+            var logEvent = new LogEventInfo(LogLevel.Error, Log.Name, ex.Message);
+
+            logEvent.Properties["className"] = className;
+            logEvent.Properties["methodName"] = methodName;
+            logEvent.Properties["lineNumber"] = lineNumber;
+            logEvent.Properties["storedProcedure"] = storeProcedure;
+            logEvent.Properties["stackTrace"] = ex.ToString();
+
+            Log.Log(logEvent);
         }
-        Log.Error(FormStructuredLog($"StackTrace: {ex.StackTrace}", storeProcedure));
+        else
+        {
+            Log.Error(FormStructuredLog($"Exception: {ex.Message}", storeProcedure));
+
+            if (ex.InnerException != null)
+            {
+                Log.Error(FormStructuredLog($"InnerException: {ex.InnerException.Message}", storeProcedure));
+            }
+            Log.Error(FormStructuredLog($"StackTrace: {ex.StackTrace}", storeProcedure));
+        }
     }
 
     public void Error(Exception ex)
@@ -42,18 +96,63 @@ public class BaseLogger
 
     public void Info(string message)
     {
-        Log.Info(FormStructuredLog(message));
+        if (siemEnabled)
+        {
+            var (className, methodName, lineNumber) = ExtractCallerInfo();
+            var logEvent = new LogEventInfo(LogLevel.Info, Log.Name, message);
+
+            logEvent.Properties["className"] = className;
+            logEvent.Properties["methodName"] = methodName;
+            logEvent.Properties["lineNumber"] = lineNumber;
+            logEvent.Properties["stackTrace"] = message;
+
+            Log.Log(logEvent);
+        }
+        else
+        {
+            Log.Info(FormStructuredLog(message));
+        }
     }
 
     public void Warn(string message)
     {
-        Log.Warn(FormStructuredLog(message));
+        if (siemEnabled)
+        {
+            var (className, methodName, lineNumber) = ExtractCallerInfo();
+            var logEvent = new LogEventInfo(LogLevel.Warn, Log.Name, message);
+
+            logEvent.Properties["className"] = className;
+            logEvent.Properties["methodName"] = methodName;
+            logEvent.Properties["lineNumber"] = lineNumber;
+            logEvent.Properties["stackTrace"] = message;
+
+            Log.Log(logEvent);
+        }
+        else
+        {
+            Log.Warn(FormStructuredLog(message));
+        }
 
     }
 
     public void Trace(string message)
     {
-        Log.Trace(FormStructuredLog(message));
+        if (siemEnabled)
+        {
+            var (className, methodName, lineNumber) = ExtractCallerInfo();
+            var logEvent = new LogEventInfo(LogLevel.Trace, Log.Name, message);
+
+            logEvent.Properties["className"] = className;
+            logEvent.Properties["methodName"] = methodName;
+            logEvent.Properties["lineNumber"] = lineNumber;
+            logEvent.Properties["stackTrace"] = message;
+
+            Log.Log(logEvent);
+        }
+        else
+        {
+            Log.Trace(FormStructuredLog(message));
+        }
 
     }
 
@@ -144,3 +243,6 @@ public class BaseLogger
         return (className, methodName, lineNumber);
     }
 }
+
+
+

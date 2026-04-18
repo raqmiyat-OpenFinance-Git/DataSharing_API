@@ -2,9 +2,19 @@
 
 public class DataSharingLogger : BaseLogger
 {
-    public DataSharingLogger() 
+    public DataSharingLogger(IConfiguration configuration) : base(configuration)
     {
-        Log = LogManager.GetLogger("DataSharingLogger");
+        bool siemEnabled = configuration.GetValue<bool>("SIEM-Ready-Log");
+
+        if (siemEnabled)
+        {
+            LogManager.Setup().LoadConfigurationFromFile("NLog.config");
+            Log = LogManager.GetLogger("DataSharingJsonLogger");
+        }
+        else
+        {
+            Log = LogManager.GetLogger("DataSharingLogger");
+        }
     }
 }
 

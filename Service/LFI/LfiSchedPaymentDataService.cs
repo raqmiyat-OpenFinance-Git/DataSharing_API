@@ -6,11 +6,13 @@ public class LfiSchedPaymentDataService : ILfiSchedPaymentDataService
 {
     private IDbConnection _idbConnection;
     private readonly IOptions<StoredProcedureParams> _storedProcedureParams;
+    private readonly DataSharingLogger _logger;
 
-    public LfiSchedPaymentDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams)
+    public LfiSchedPaymentDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams,DataSharingLogger logger)
     {
         _idbConnection = idbConnection;
         _storedProcedureParams = storedProcedureParams;
+        _logger = logger;
     }
     public async Task<IEnumerable<SchedPaymentResponse>> GetPaymentDataListAsync()
     {
@@ -24,6 +26,7 @@ public class LfiSchedPaymentDataService : ILfiSchedPaymentDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetPaymentDataListAsync");
             return Enumerable.Empty<SchedPaymentResponse>();
         }
     }
@@ -43,6 +46,7 @@ public class LfiSchedPaymentDataService : ILfiSchedPaymentDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetPaymentDataByRefIdAsync");
             return null;
         }
     }
@@ -69,6 +73,7 @@ public class LfiSchedPaymentDataService : ILfiSchedPaymentDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetPaymentDataSearchByIdAsync");
             return null;
         }
     }

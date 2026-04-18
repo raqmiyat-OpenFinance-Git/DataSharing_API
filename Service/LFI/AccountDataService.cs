@@ -6,14 +6,16 @@ public class AccountDataService : IAccountDataService
 {
     private IDbConnection _idbConnection;
     private readonly IOptions<StoredProcedureParams> _storedProcedureParams;
-
-    public AccountDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams)
+    private readonly DataSharingLogger _logger;
+    public AccountDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams, DataSharingLogger logger)
     {
         _idbConnection = idbConnection;
         _storedProcedureParams = storedProcedureParams;
+        _logger = logger;
     }
     public async Task<IEnumerable<AccountDataResponse>> GetAccountDataListAsync()
     {
+        _logger.Info("Start a GetAccountDataListAsync");
         try
         {
             var result = await _idbConnection.QueryAsync<AccountDataResponse>(
@@ -24,7 +26,9 @@ public class AccountDataService : IAccountDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetAccountDataListAsync");
             return Enumerable.Empty<AccountDataResponse>();
+          
         }
     }
 
@@ -44,6 +48,7 @@ public class AccountDataService : IAccountDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetAccountDataByRefIdAsync");
             return null;
         }
     }
@@ -70,6 +75,7 @@ public class AccountDataService : IAccountDataService
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error Occurred in GetAccountDataSearchByIdAsync");
             return null;
         }
     }
