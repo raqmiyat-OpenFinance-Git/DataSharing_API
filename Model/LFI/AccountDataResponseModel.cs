@@ -35,6 +35,17 @@
         public string? NickName { get; set; }
         public string? OpeningDate { get; set; }
         public string? MaturityDate { get; set; }
+
+        public string? BalanceCreditDebitIndicator { get; set; }
+        public string? BalanceType { get; set; }
+        public DateTime BalanceTimestamp { get; set; }
+        public bool BalanceCreditLineIncluded { get; set; }
+        public string? BalanceCreditLineCreditType { get; set; }
+        public string? BalanceAmount { get; set; }
+        public string? BalanceCurrency { get; set; }
+        public string? BalanceCreditLineAmount { get; set; }
+        public string? BalanceCreditLineCurrency { get; set; }
+
         public string? Type { get; set; }
         public string? Status { get; set; }
         public string? CreatedBy { get; set; }
