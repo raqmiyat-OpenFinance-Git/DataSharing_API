@@ -30,12 +30,12 @@ public class ProductDataService : IProductDataService
             return Enumerable.Empty<ProductResponse>();
         }
     }
-    public async Task<ProductResponse?> GetProductDataByRefIdAsync(string CorrelationId)
+    public async Task<ProductResponse?> GetProductDataByRefIdAsync(long RequestId)
     {
         try
         {
             var parameters = new DynamicParameters();
-            parameters.Add("CorrelationId", CorrelationId, DbType.String);
+            parameters.Add("RequestId", RequestId, DbType.Int32);
 
             var result = await _idbConnection.QueryFirstOrDefaultAsync<ProductResponse>(
                 _storedProcedureParams.Value.dataSharingSPParams!.RetrieveProductDataByRefId!,
@@ -51,7 +51,7 @@ public class ProductDataService : IProductDataService
         }
     }
     public async Task<IEnumerable<ProductResponse>> GetProductDataSearchByIdAsync(string Fromdate, string Todate, string ConsentId, string AccountId,
-        string Type, string Status, string OrganizationId, string ClientId)
+        string Type, string Status, string OrganizationId, string ClientId, string ChargeAmount)
     {
         try
         {
@@ -64,6 +64,7 @@ public class ProductDataService : IProductDataService
             parameters.Add("TppName", OrganizationId, DbType.String);
             parameters.Add("TppID", ClientId, DbType.String);
             parameters.Add("Status", Status, DbType.String);
+            parameters.Add("ChargeAmount", ChargeAmount, DbType.String);
 
             var result = await _idbConnection.QueryAsync<ProductResponse>(
                 _storedProcedureParams.Value.dataSharingSPParams!.RetrieveProductDataSearchByRefId!,
