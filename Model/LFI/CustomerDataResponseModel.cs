@@ -94,6 +94,14 @@
         public string? ClaimProfession { get; set; }
         public string? ClaimUpdatedAt { get; set; }
 
+        public string? ClaimCorporateBusinessName { get; set; }
+        public string? ClaimCorporateTradeLicenceNumber { get; set; }
+        public string? ClaimCorporateTaxIDNumber { get; set; }
+        public string? ClaimCorporateCountryOfIncorporation { get; set; }
+        public string? ClaimCorporateEmail { get; set; }
+        public string? ClaimCorporateContactPhoneNumber { get; set; }
+        public DateTime? ClaimCorporateDateOfIncorporation { get; set; }
+
         public string? ResidentialAddressType { get; set; }
         public string? ResidentialAddressLine { get; set; }
         public string? ResidentialBuildingNumber { get; set; }
@@ -105,6 +113,18 @@
         public string? ResidentialTownName { get; set; }
         public string? ResidentialCountrySubDivision { get; set; }
         public string? ResidentialCountry { get; set; }
+
+        public string? CorporateAddressType { get; set; }
+        public string? CorporateAddressLine { get; set; }
+        public string? CorporateBuildingNumber { get; set; }
+        public string? CorporateBuildingName { get; set; }
+        public string? CorporateFloor { get; set; }
+        public string? CorporateStreetName { get; set; }
+        public string? CorporateDistrictName { get; set; }
+        public string? CorporatePostBox { get; set; }
+        public string? CorporateTownName { get; set; }
+        public string? CorporateCountrySubDivision { get; set; }
+        public string? CorporateCountry { get; set; }
 
         public string? Type { get; set; }
         public string? Status { get; set; }
