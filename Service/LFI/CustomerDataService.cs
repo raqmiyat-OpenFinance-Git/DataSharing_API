@@ -13,12 +13,14 @@ public class CustomerDataService : ICustomerDataService
         _storedProcedureParams = storedProcedureParams;
         _logger = logger;
     }
-    public async Task<IEnumerable<CustomerDataResponse>> GetCustomerDataListAsync()
+    public async Task<IEnumerable<CustomerDataResponse>> GetCustomerDataListAsync(string CustomerCategory)
     {
         try
         {
+            var parameters = new DynamicParameters();
+            parameters.Add("CustomerCategory", CustomerCategory, DbType.String);
             var result = await _idbConnection.QueryAsync<CustomerDataResponse>(
-                _storedProcedureParams.Value.dataSharingSPParams!.RetrieveCustomerData!,
+                _storedProcedureParams.Value.dataSharingSPParams!.RetrieveCustomerData!,parameters,
                 commandType: CommandType.StoredProcedure
             );
             return result.ToList();
@@ -51,8 +53,9 @@ public class CustomerDataService : ICustomerDataService
             return null;
         }
     }
-    public async Task<IEnumerable<CustomerDataResponse>> GetCustomerDataSearchByIdAsync(string Fromdate, string Todate, string ConsentId, string Type, string CustomerId, string Customernbr, string Customername, string Customerstatus
-        , string OrganizationId, string ClientId)
+    public async Task<IEnumerable<CustomerDataResponse>> GetCustomerDataSearchByIdAsync(string Fromdate, string Todate, string ConsentId, string Type, string CustomerId, string Customernbr, string Customername,
+        string Customerstatus
+        , string OrganizationId, string ClientId,string CustomerCategory)
     {
         try
         {
@@ -68,6 +71,7 @@ public class CustomerDataService : ICustomerDataService
             parameters.Add("CustomerStatus", Customerstatus, DbType.String);
             parameters.Add("OrganizationId", OrganizationId, DbType.String);
             parameters.Add("ClientId", ClientId, DbType.String);
+            parameters.Add("CustomerCategory", CustomerCategory, DbType.String);
             var result = await _idbConnection.QueryAsync<CustomerDataResponse>(
                 _storedProcedureParams.Value.dataSharingSPParams!.RetrieveCustomerDataSearchByRefId!,
                 parameters,

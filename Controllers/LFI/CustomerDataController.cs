@@ -14,9 +14,9 @@ public class CustomerDataController : ControllerBase
     }
     [HttpGet]
     [Route("GetCustomerDataList")]
-    public Task<IEnumerable<CustomerDataResponse>> GetCustomerDataList()
+    public Task<IEnumerable<CustomerDataResponse>> GetCustomerDataList(string CustomerCategory)
     {
-        return _customerdataservice.GetCustomerDataListAsync();
+        return _customerdataservice.GetCustomerDataListAsync(CustomerCategory);
 
     }
     [HttpGet]
@@ -29,9 +29,9 @@ public class CustomerDataController : ControllerBase
 
     [HttpGet]
     [Route("GetCustomerDataSearchById")]
-    public Task<IEnumerable<CustomerDataResponse>> GetCustomerDataSearchById(string Fromdate, string Todate, string? ConsentId, string? Type, string? CustomerId, string? Customernbr, string? Customername, string? Customerstatus, string? OrganizationId, string? ClientId)
+    public Task<IEnumerable<CustomerDataResponse>> GetCustomerDataSearchById(string Fromdate, string Todate, string? ConsentId, string? Type, string? CustomerId, string? Customernbr, string? Customername, string? Customerstatus, string? OrganizationId, string? ClientId,string? CustomerCategory)
     {
-        return _customerdataservice.GetCustomerDataSearchByIdAsync(Fromdate, Todate, ConsentId!, Type!, CustomerId!, Customernbr!, Customername!, Customerstatus!, OrganizationId, ClientId);
+        return _customerdataservice.GetCustomerDataSearchByIdAsync(Fromdate, Todate, ConsentId!, Type!, CustomerId!, Customernbr!, Customername!, Customerstatus!, OrganizationId, ClientId, CustomerCategory!);
 
     }
 }
