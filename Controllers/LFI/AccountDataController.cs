@@ -14,9 +14,9 @@ public class AccountDataController : ControllerBase
     }
     [HttpGet]
     [Route("GetAccountDataList")]
-    public Task<IEnumerable<AccountDataResponse>> GetAccountDataList()
+    public Task<IEnumerable<AccountDataResponse>> GetAccountDataList(string AccountType)
     {
-        return _accountdataservice.GetAccountDataListAsync();
+        return _accountdataservice.GetAccountDataListAsync(AccountType);
 
     }
     [HttpGet]
@@ -29,9 +29,9 @@ public class AccountDataController : ControllerBase
 
     [HttpGet]
     [Route("GetAccountDataSearchById")]
-    public Task<IEnumerable<AccountDataResponse>> GetAccountDataSearchById(string Fromdate, string Todate, string? ConsentId, string? AccountId, string? Type, string? Accountstatus, string? OrganizationId, string? ClientId)
+    public Task<IEnumerable<AccountDataResponse>> GetAccountDataSearchById(string Fromdate, string Todate, string? ConsentId, string? AccountId, string? Type, string? Accountstatus, string? OrganizationId, string? ClientId, string AccountType)
     {
-        return _accountdataservice.GetAccountDataSearchByIdAsync(Fromdate, Todate, ConsentId!, AccountId!, Type!, Accountstatus, OrganizationId, ClientId);
+        return _accountdataservice.GetAccountDataSearchByIdAsync(Fromdate, Todate, ConsentId!, AccountId!, Type!, Accountstatus, OrganizationId, ClientId, AccountType);
 
     }
 }

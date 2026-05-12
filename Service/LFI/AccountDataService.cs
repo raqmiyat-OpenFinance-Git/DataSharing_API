@@ -13,13 +13,15 @@ public class AccountDataService : IAccountDataService
         _storedProcedureParams = storedProcedureParams;
         _logger = logger;
     }
-    public async Task<IEnumerable<AccountDataResponse>> GetAccountDataListAsync()
+    public async Task<IEnumerable<AccountDataResponse>> GetAccountDataListAsync(string AccountType)
     {
         _logger.Info("Start a GetAccountDataListAsync");
         try
         {
+            var parameters = new DynamicParameters();
+            parameters.Add("AccountType", AccountType, DbType.String);
             var result = await _idbConnection.QueryAsync<AccountDataResponse>(
-                _storedProcedureParams.Value.dataSharingSPParams!.RetrieveAccountData!,
+                _storedProcedureParams.Value.dataSharingSPParams!.RetrieveAccountData!, parameters,
                 commandType: CommandType.StoredProcedure
             );
             return result.ToList();
@@ -52,7 +54,7 @@ public class AccountDataService : IAccountDataService
             return null;
         }
     }
-    public async Task<IEnumerable<AccountDataResponse>> GetAccountDataSearchByIdAsync(string Fromdate, string Todate, string ConsentId, string AccountId, string Type, string? Accountstatus, string? OrganizationId, string? ClientId)
+    public async Task<IEnumerable<AccountDataResponse>> GetAccountDataSearchByIdAsync(string Fromdate, string Todate, string ConsentId, string AccountId, string Type, string? Accountstatus, string? OrganizationId, string? ClientId, string AccountType)
     {
         try
         {
@@ -66,6 +68,7 @@ public class AccountDataService : IAccountDataService
             parameters.Add("@Status", Accountstatus, DbType.String);
             parameters.Add("@TppName", OrganizationId, DbType.String);
             parameters.Add("@TppID", ClientId, DbType.String);
+            parameters.Add("AccountType", AccountType, DbType.String);
             var result = await _idbConnection.QueryAsync<AccountDataResponse>(
                 _storedProcedureParams.Value.dataSharingSPParams!.RetrieveAccountDataSearchByRefId!,
                 parameters,
