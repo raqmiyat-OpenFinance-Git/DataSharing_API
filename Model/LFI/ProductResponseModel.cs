@@ -132,6 +132,9 @@
         public string? TppName { get; set; }
         public string? TppId { get; set; }
         public string? Status { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+
     }
 }
 
