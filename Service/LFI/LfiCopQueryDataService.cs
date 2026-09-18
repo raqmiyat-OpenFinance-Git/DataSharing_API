@@ -8,7 +8,7 @@ public class LfiCopQueryDataService : ILfiCopQueryDataService
     private readonly IOptions<StoredProcedureParams> _storedProcedureParams;
     private readonly DataSharingLogger _logger;
 
-    public LfiCopQueryDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams,DataSharingLogger logger)
+    public LfiCopQueryDataService(IDbConnection idbConnection, IOptions<StoredProcedureParams> storedProcedureParams, DataSharingLogger logger)
     {
         _idbConnection = idbConnection;
         _storedProcedureParams = storedProcedureParams;
@@ -53,7 +53,7 @@ public class LfiCopQueryDataService : ILfiCopQueryDataService
         }
     }
 
-    public async Task<IEnumerable<LfiCoPQueryData>> GetCopQueryDataSearchByIdAsync(string Fromdate, string todate, string CustomerName, string Customerstatus)
+    public async Task<IEnumerable<LfiCoPQueryData>> GetCopQueryDataSearchByIdAsync(string Fromdate, string todate, string CustomerName, string Iban, string EmiratesId, string Email, string CustomerQueryStatus, string Customerstatus)
     {
         try
         {
@@ -62,6 +62,10 @@ public class LfiCopQueryDataService : ILfiCopQueryDataService
             parameters.Add("Fromdate", Fromdate, DbType.String);
             parameters.Add("Todate", todate, DbType.String);
             parameters.Add("CustomerName", CustomerName, DbType.String);
+            parameters.Add("Iban", Iban, DbType.String);
+            parameters.Add("EmiratesId", EmiratesId, DbType.String);
+            parameters.Add("Email", Email, DbType.String);
+            parameters.Add("CustomerQueryStatus", CustomerQueryStatus, DbType.String);
             parameters.Add("CustomerStatus", Customerstatus, DbType.String);
             var result = await _idbConnection.QueryAsync<LfiCoPQueryData>(
                 _storedProcedureParams.Value.dataSharingSPParams!.RetrieveCoPQueryDataSearchByRefId!,

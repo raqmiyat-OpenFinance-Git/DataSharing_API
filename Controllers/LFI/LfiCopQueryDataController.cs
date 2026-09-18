@@ -29,9 +29,9 @@ public class LfiCopQueryDataController : ControllerBase
 
     [HttpGet]
     [Route("GetCopQueryDataSearchById")]
-    public Task<IEnumerable<LfiCoPQueryData>> GetCopQueryDataSearchByIdAsync(string FromDate, string ToDate, string? CustomerName, string? CustomerStatus)
+    public Task<IEnumerable<LfiCoPQueryData>> GetCopQueryDataSearchByIdAsync(string FromDate, string ToDate, string? CustomerName, string? Iban, string? EmiratesId, string? Email, string? CustomerQueryStatus, string? CustomerStatus)
     {
-        return _lfiCopQueryDataService.GetCopQueryDataSearchByIdAsync(FromDate, ToDate, CustomerName, CustomerStatus);
+        return _lfiCopQueryDataService.GetCopQueryDataSearchByIdAsync(FromDate, ToDate, CustomerName, Iban, EmiratesId, Email, CustomerQueryStatus, CustomerStatus);
 
     }
 }
